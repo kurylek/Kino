@@ -21,7 +21,7 @@ public abstract class Movie {
         this.title = title;
         this.duration = duration;
         this.categories = new ArrayList<>();
-        this.categories.add(category)
+        this.categories.add(category);
         this.licensePurchaseDate = dateFormat.parse(licensePurchaseDate);
         this.playsInCurrentYear = 0;
         this.minViewerAge = minViewerAge;
