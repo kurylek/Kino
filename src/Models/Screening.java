@@ -2,13 +2,14 @@ package Models;
 
 import Enums.EnumScreeningStatus;
 import Exceptions.AlreadyThatTypeException;
+import ObjectPlus.ObjectPlus;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Screening {
+public class Screening extends ObjectPlus {
     static int minViewerCount = 10;
 
     private Date screeningDate; //dd-MM-yyyy HH:mm

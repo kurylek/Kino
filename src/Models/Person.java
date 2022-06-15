@@ -2,9 +2,11 @@ package Models;
 
 import Enums.EnumPersonType;
 import Exceptions.AlreadyThatTypeException;
+import ObjectPlus.ObjectPlus;
+
 import java.util.EnumSet;
 
-public class Person {
+public class Person extends ObjectPlus {
     private String firstName;
     private String lastName;
     private String email;

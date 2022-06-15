@@ -1,6 +1,7 @@
 package Models;
 
 import Enums.EnumMovieCategory;
+import ObjectPlus.ObjectPlus;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public abstract class Movie {
+public abstract class Movie extends ObjectPlus {
     private String title;
     private int duration; //in minutes
     private List<EnumMovieCategory> categories;

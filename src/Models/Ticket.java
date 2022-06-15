@@ -1,9 +1,11 @@
 package Models;
 
 import Enums.EnumTicketType;
+import ObjectPlus.ObjectPlus;
+
 import java.math.BigDecimal;
 
-public class Ticket {
+public class Ticket extends ObjectPlus {
     private static final BigDecimal REUCED_TICKET_MULTIPLIER = new BigDecimal("0.75");
     private EnumTicketType ticketType;
     private BigDecimal price;

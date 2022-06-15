@@ -1,6 +1,8 @@
 package Models;
 
-public class Address {
+import ObjectPlus.ObjectPlus;
+
+public class Address extends ObjectPlus {
     private String street;
     private String number; //String- can be eg. 2A
     private String zipCode;
