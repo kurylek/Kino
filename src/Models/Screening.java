@@ -2,6 +2,7 @@ package Models;
 
 import Enums.EnumScreeningStatus;
 import Exceptions.AlreadyThatTypeException;
+import Exceptions.CollidateException;
 import ObjectPlus.ObjectPlus;
 
 import java.math.BigDecimal;
@@ -12,14 +13,27 @@ import java.util.Date;
 public class Screening extends ObjectPlus {
     static int minViewerCount = 10;
 
-    private Date screeningDate; //dd-MM-yyyy HH:mm
+    private Date screeningDateTime; //dd-MM-yyyy HH:mm
     private int viewerCount;
     private BigDecimal baseTicketPrice;
     private EnumScreeningStatus screeningStatus;
 
-    public Screening(String date, String time, BigDecimal baseTicketPrice, Movie movie, ScreeningRoom screeningRoom) throws ParseException {
+    private ScreeningRoom takesPlace;
+    private Movie movieOnScreening;
+
+    public Screening(String date, String time, BigDecimal baseTicketPrice, Movie movie, ScreeningRoom screeningRoom) throws CollidateException, ParseException {
+        if(screeningRoom == null) {
+            throw new NullPointerException("Given screening room in null!");
+        }
+        if(screeningRoom.isBusyAt(date, time, movie.getDuration())) {
+            throw new CollidateException("Movie will collidate with over"); //moze zrobic swoj exception?
+        }
+        this.takesPlace = screeningRoom;
+        screeningRoom.addScreening(this);
+        this.movieOnScreening = movie;
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        this.screeningDate = dateFormat.parse(date + " " + time);
+        this.screeningDateTime = dateFormat.parse(date + " " + time);
         this.viewerCount = 0;
         this.baseTicketPrice = baseTicketPrice;
         this.screeningStatus = EnumScreeningStatus.PLANNED;
@@ -27,15 +41,28 @@ public class Screening extends ObjectPlus {
 
     public void changeScreeningStatus(EnumScreeningStatus status) throws AlreadyThatTypeException {
         if(screeningStatus == status){
-            throw new AlreadyThatTypeException("This screebubg has already this status!");
+            throw new AlreadyThatTypeException("This screening has already this status!");
         }
 
         this.screeningStatus = status;
+    }
+
+    public Movie getMovieOnScreening() {
+        return movieOnScreening;
+    }
+
+    public Date getScreeningDateTime() {
+        return screeningDateTime;
     }
 
     public void increaseViewerCount() {
         this.viewerCount++;
     }
 
-
+    @Override
+    public String toString() {
+        return "Screening info {Date-" + screeningDateTime + ", Current viewers count- "+ viewerCount +
+                ", Base ticket price-" + baseTicketPrice + ", Screening status=" + screeningStatus +
+                ", Takes place in screening room- " + takesPlace.getRoomNumber() + ", Displays movie- " + movieOnScreening.getTitle() + "}";
+    }
 }

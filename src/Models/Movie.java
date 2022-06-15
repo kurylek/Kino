@@ -31,4 +31,12 @@ public abstract class Movie extends ObjectPlus {
     public Movie(String title, int duration, EnumMovieCategory category, String licensePurchaseDate) throws ParseException {
         this(title, duration, category, licensePurchaseDate, 0); //int cant be null!
     }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public String getTitle() {
+        return title;
+    }
 }
