@@ -89,6 +89,10 @@ public class ScreeningRoom extends ObjectPlus {
         }
     }
 
+    public int getScreeningCount(){
+        return listOfScreenings.size();
+    }
+
     @Override
     public String toString() {
         return "ScreeningRoom  info { Number- " + roomNumber + ", Seats count- " + seatsCount +

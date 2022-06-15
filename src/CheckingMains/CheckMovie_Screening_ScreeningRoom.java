@@ -46,6 +46,11 @@ public class CheckMovie_Screening_ScreeningRoom {
             System.out.println(s.toString());
         }
 
+        System.out.println("\n\nMovie1");
+        m1.listPlatedOn();
+        System.out.println("~~\nMovie2");
+        m2.listPlatedOn();
+
         try {
             ObjectPlus.writeExtent(new ObjectOutputStream(new DataOutputStream(new BufferedOutputStream(new FileOutputStream("D:\\projekt")))));
         } catch (IOException e) {

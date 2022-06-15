@@ -5,9 +5,7 @@ import ObjectPlus.ObjectPlus;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public abstract class Movie extends ObjectPlus {
     private String title;
@@ -16,6 +14,8 @@ public abstract class Movie extends ObjectPlus {
     private Date licensePurchaseDate;
     private int playsInCurrentYear;
     private int minViewerAge; // -> ENUM PEGI? | int cant be null!
+
+    private Map<String, Screening> playedOn;
 
     public Movie(String title, int duration, EnumMovieCategory category, String licensePurchaseDate, int minViewerAge) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -26,6 +26,7 @@ public abstract class Movie extends ObjectPlus {
         this.licensePurchaseDate = dateFormat.parse(licensePurchaseDate);
         this.playsInCurrentYear = 0;
         this.minViewerAge = minViewerAge;
+        this.playedOn = new TreeMap<>();
     }
 
     public Movie(String title, int duration, EnumMovieCategory category, String licensePurchaseDate) throws ParseException {
@@ -38,5 +39,27 @@ public abstract class Movie extends ObjectPlus {
 
     public String getTitle() {
         return title;
+    }
+
+    public void addPlayedOn(Screening screening) {
+        if(!playedOn.containsKey(screening.getScreeningNumber())){
+            playedOn.put(screening.getScreeningNumber(), screening);
+
+
+        }
+    }
+
+    public void listPlatedOn(){
+        System.out.println("This movie was played on:");
+        for(Screening s : playedOn.values()) {
+            System.out.println(s);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Movie info {Title- " + title + ", Duration- " + duration + "min, Categories- " + categories +
+                ", License Purchase Date=" + new SimpleDateFormat("dd-MM-yyyy").format(licensePurchaseDate) +
+                ", Played " + playsInCurrentYear + "times this year, Min. viewer age=" + minViewerAge + "}";
     }
 }
