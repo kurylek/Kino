@@ -46,6 +46,12 @@ public class CheckMovie_Screening_ScreeningRoom {
             System.out.println(s.toString());
         }
 
+        System.out.println("\n\nAre there screenings planned? " + Screening.doScreeningExist());
+        System.out.println("Screenings at 16-06-2022:");
+        for(Screening s : Screening.getScreeningsAtDate("16-06-2022")){
+            System.out.println(s.toString());
+        }
+
         System.out.println("\n\nMovie1");
         m1.listPlatedOn();
         System.out.println("~~\nMovie2");

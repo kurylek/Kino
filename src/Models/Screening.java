@@ -8,10 +8,13 @@ import ObjectPlus.ObjectPlus;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Screening extends ObjectPlus {
-    static int minViewerCount = 10;
+    private static List<Screening> allScreenings = new ArrayList<>();
+    private static int minViewerCount = 10;
 
     private String screeningNumber; //xxzzY -xx screeningRoom zz-screeningNumberThisDay Y-ddMMyyyy
     private Date screeningDateTime; //dd-MM-yyyy HH:mm
@@ -44,6 +47,8 @@ public class Screening extends ObjectPlus {
         this.screeningStatus = EnumScreeningStatus.PLANNED;
         this.movieOnScreening = movie;
         movie.addPlayedOn(this);
+
+        allScreenings.add(this);
     }
 
     public void changeScreeningStatus(EnumScreeningStatus status) throws AlreadyThatTypeException {
@@ -68,6 +73,24 @@ public class Screening extends ObjectPlus {
 
     public String getScreeningNumber() {
         return screeningNumber;
+    }
+
+    public static boolean doScreeningExist(){
+        return allScreenings.size() > 0;
+    }
+
+    public static List<Screening> getScreeningsAtDate(String date) {
+        List<Screening> result = new ArrayList<>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+        for(Screening s : allScreenings) {
+            Date sDate = s.getScreeningDateTime();
+            if(date.equals(dateFormat.format(sDate))) {
+                result.add(s);
+            }
+        }
+
+        return result;
     }
 
     @Override
