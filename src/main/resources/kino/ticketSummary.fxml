@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kino.ClientUIController">
+    <children>
+        <Label fx:id="loggedUserLabel" alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="600.0" text="Zalogowano jako:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" />
+        <Label alignment="CENTER" prefHeight="60.0" prefWidth="600.0" text="Zatwierdź zakup" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+            <font>
+                <Font name="System Bold" size="31.0" />
+            </font>
+        </Label>
+        <Button mnemonicParsing="false" onAction="#backToMainMenu" prefHeight="30.0" prefWidth="200.0" text="Anuluj" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
+      <Label fx:id="ticketSummaryLabel" alignment="CENTER" prefHeight="60.0" prefWidth="600.0" text="Twój bilet kosztuje xx zł" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="120.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="210.0" layoutY="210.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Zapłać" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
+    </children>
+</AnchorPane>
