@@ -20,6 +20,10 @@ public class ClientUI extends Application {
         return client.getName();
     }
 
+    public static Person getClient() {
+        return client;
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         try {

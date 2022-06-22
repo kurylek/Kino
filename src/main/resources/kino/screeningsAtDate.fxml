@@ -19,7 +19,7 @@
       <Button fx:id="buyTicketButton" layoutX="308.0" layoutY="350.0" mnemonicParsing="false" onAction="#buyTicket" prefHeight="30.0" prefWidth="190.0" text="Kup bilet" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="100.0" />
       <Button mnemonicParsing="false" onAction="#backToDateInput" prefHeight="30.0" prefWidth="200.0" text="Powrót" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
       <TextField fx:id="screeningInput" layoutX="104.0" layoutY="303.0" onKeyTyped="#changeBuyTicketButton" prefHeight="30.0" prefWidth="180.0" promptText="Numer seansu" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="100.0" />
-      <TextArea fx:id="screeningsList" layoutX="200.0" layoutY="118.0" prefHeight="165.0" prefWidth="400.0" wrapText="true" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="110.0" />
+      <TextArea fx:id="screeningsList" layoutX="200.0" layoutY="118.0" prefHeight="165.0" prefWidth="400.0" wrapText="true" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="110.0" />
       <Label fx:id="badScreeningInputLabel" alignment="CENTER" layoutX="286.0" layoutY="271.0" prefHeight="17.0" prefWidth="600.0" textFill="RED" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
    </children>
 </AnchorPane>

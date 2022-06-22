@@ -75,6 +75,10 @@ public class Screening extends ObjectPlus {
         return screeningNumber;
     }
 
+    public ScreeningRoom getTakesPlace() {
+        return takesPlace;
+    }
+
     public EnumScreeningStatus getScreeningStatus() {
         return screeningStatus;
     }

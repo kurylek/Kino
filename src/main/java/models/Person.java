@@ -120,6 +120,13 @@ public class Person extends ObjectPlus {
         }
     }
 
+    public boolean operateOn(ScreeningRoom screeningRoom) throws Exception {
+        if(!this.personTypes.contains(EnumPersonType.EMPLOYEE)) {
+            throw new Exception("This person is not an(?) employee"); //TODO
+        }
+        return operate.contains(screeningRoom);
+    }
+
     @Override
     public String toString() {
         return "Person{" +

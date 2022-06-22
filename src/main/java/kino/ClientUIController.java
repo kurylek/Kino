@@ -175,11 +175,13 @@ public class ClientUIController {
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             for(int i=0; i<screeningsAtDate.size(); i++){
                 Screening s = screeningsAtDate.get(i);
-                screeningsList.setText(screeningsList.getText() + "Seans numer " + (i+1) + ": " + timeFormat.format(s.getScreeningDateTime()) + " Film- " + s.getMovieOnScreening().getTitle() + "\n");
-            }
-
-            for(int i=0;i<40;i++){
-                screeningsList.setText(screeningsList.getText() + "Seans numer \n");
+                String employeeWarning = "";
+                try {
+                    if(ClientUI.getClient().operateOn(s.getTakesPlace())){
+                        employeeWarning = "Obsługujesz tę salę, sprawdź czy masz wolne!";
+                    }
+                } catch (Exception ignore) {}
+                screeningsList.setText(screeningsList.getText() + "Seans numer " + (i+1) + ": " + timeFormat.format(s.getScreeningDateTime()) + " Film- " + s.getMovieOnScreening().getTitle() + " " + employeeWarning + "\n");
             }
         }
 
