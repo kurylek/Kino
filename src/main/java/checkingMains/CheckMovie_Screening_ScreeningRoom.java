@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 
 public class CheckMovie_Screening_ScreeningRoom {
-    public static void main(String[] args) throws ParseException, CollidateException, ClassNotFoundException {
+    public static void main(String[] args) throws Exception {
         ScreeningRoom sr1 = new ScreeningRoom(1, 60, EnumScreeningRoomType.TYPE_2D);
         ScreeningRoom sr2 = new ScreeningRoom(2, 30, EnumScreeningRoomType.TYPE_3D);
 
@@ -26,7 +26,7 @@ public class CheckMovie_Screening_ScreeningRoom {
         Screening s2 = new Screening("15-06-2022", "19:30", BigDecimal.valueOf(25), m1, sr1);
         Screening s3 = new Screening("15-06-2022", "18:00", BigDecimal.valueOf(25), m2, sr2);
         Screening s4 = new Screening("16-06-2022", "18:00", BigDecimal.valueOf(25), m2, sr2);
-        Screening s5 = new Screening("19-06-2022", "08:00", BigDecimal.valueOf(25), m2, sr2);
+        Screening s5 = new Screening("19-06-2022", "08:00", BigDecimal.valueOf(25), m2, sr1);
         Screening s6 = new Screening("19-06-2022", "11:00", BigDecimal.valueOf(25), m2, sr2);
         Screening s7 = new Screening("19-06-2022", "19:00", BigDecimal.valueOf(25), m2, sr2);
 
@@ -58,7 +58,7 @@ public class CheckMovie_Screening_ScreeningRoom {
         System.out.println("~~\nMovie2");
         m2.listPlatedOn();
 
-            Person p1 = Person.createClientAccount("Jan", "Kowalski", "kowalski@gmail.com");
+        Person p1 = Person.createClientAccount("Jan", "Kowalski", "kowalski@gmail.com");
         Person p2 = Person.createClientAccount("Jan", "Nowak", "test1");
         Person p3 = Person.createEmployeeAccount("Anna", "Nowak", "Mila", "3a", "00-001", "Warszawa");
         Person p4 = Person.createEmployeeAccount("Anna", "Kowalska", "Mila", "3b", "00-001", "Warszawa");
@@ -68,7 +68,7 @@ public class CheckMovie_Screening_ScreeningRoom {
             e.printStackTrace();
         }
 
-        s1.canBuyTicket();
+        p4.addScreeningRoomToOperate(sr1);
 
         try {
             ObjectPlus.writeExtent(new ObjectOutputStream(new DataOutputStream(new BufferedOutputStream(new FileOutputStream("D:\\projekt")))));

@@ -1,5 +1,6 @@
 package models;
 
+import enums.EnumPersonType;
 import enums.EnumScreeningRoomType;
 import exceptions.PartConnectedException;
 import objectPlus.ObjectPlus;
@@ -13,8 +14,9 @@ public class ScreeningRoom extends ObjectPlus {
     private int seatsCount;
     private EnumScreeningRoomType type;
 
+    private List<Person> operatedBy;
     private List<Speaker> speakers;
-    public static Set<Speaker> allSpeakers = new HashSet<>();
+    private static Set<Speaker> allSpeakers = new HashSet<>();
     private List<Screening> listOfScreenings;
 
     public ScreeningRoom(int roomNumber, int seatsCount, EnumScreeningRoomType type) {
@@ -23,6 +25,7 @@ public class ScreeningRoom extends ObjectPlus {
         this.type = type;
         this.speakers = new ArrayList<>();
         this.listOfScreenings = new ArrayList<>();
+        this.operatedBy = new ArrayList<>();
     }
 
     public void addSpeaker(Speaker speaker) throws PartConnectedException {
@@ -86,6 +89,19 @@ public class ScreeningRoom extends ObjectPlus {
         for(Speaker s : speakers){
             System.out.println("    " + i + ". Speaker power - " + s.getPower() + "W");
             i++;
+        }
+    }
+
+    public void addOperatedBy(Person operator) throws Exception {
+        if(operator == null) {
+            throw new Exception("Given person room is null");//TODO własny exc
+        }
+        if(!operator.getPersonTypes().contains(EnumPersonType.EMPLOYEE)) {
+            throw new Exception("Given person is not an(?) employee"); //TODO
+        }
+        if(!operatedBy.contains(operator)) {
+            operatedBy.add(operator);
+            operator.addScreeningRoomToOperate(this);
         }
     }
 

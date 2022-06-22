@@ -17,6 +17,7 @@ public class Person extends ObjectPlus {
     private String phoneNumber;
     private Address address;
     private EnumSet<EnumPersonType> personTypes;
+    private List<ScreeningRoom> operate;
 
     private Person(String firstName, String lastName, String email, String phoneNumber, Address address, EnumPersonType personType) {
         this.firstName = firstName;
@@ -25,6 +26,7 @@ public class Person extends ObjectPlus {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.personTypes = EnumSet.of(EnumPersonType.PERSON, personType);
+        this.operate = new ArrayList<>();
 
         allPersons.add(this);
     }
@@ -59,6 +61,7 @@ public class Person extends ObjectPlus {
             throw new AlreadyThatTypeException("This person isn't an employee!");
         }
 
+        operate = new ArrayList<>();
         personTypes.remove(EnumPersonType.EMPLOYEE);
         address = null;
     }
@@ -98,6 +101,23 @@ public class Person extends ObjectPlus {
 
     public String getName() {
         return firstName + " " + lastName;
+    }
+
+    public EnumSet<EnumPersonType> getPersonTypes() {
+        return personTypes;
+    }
+
+    public void addScreeningRoomToOperate(ScreeningRoom screeningRoom) throws Exception {
+        if(!this.personTypes.contains(EnumPersonType.EMPLOYEE)) {
+            throw new Exception("This person is not an(?) employee"); //TODO
+        }
+        if(screeningRoom == null) {
+            throw new Exception("Given screening room is null");//TODO własny exc
+        }
+        if(!operate.contains(screeningRoom)) {
+            operate.add(screeningRoom);
+            screeningRoom.addOperatedBy(this);
+        }
     }
 
     @Override
