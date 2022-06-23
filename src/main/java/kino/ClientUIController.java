@@ -12,10 +12,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import models.Screening;
-import models.Ticket;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,7 +24,6 @@ public class ClientUIController {
     private static String date;
     private static Screening selectedScreening;
     private static EnumTicketType selectedDiscount;
-    private static Ticket boughtTicket;
 
     @FXML
     private DatePicker dateInput;
@@ -45,12 +42,6 @@ public class ClientUIController {
 
     @FXML
     private Label screeningsAtDateLabel;
-
-    @FXML
-    private Label ticketSummaryLabel;
-
-    @FXML
-    private Label ticketCodeLabel;
 
     @FXML
     private TextField screeningInput;
@@ -159,19 +150,17 @@ public class ClientUIController {
             selectedDiscount = EnumTicketType.REDUCED;
         }
 
-        Parent root = FXMLLoader.load(getClass().getResource("ticketSummary.fxml"));
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        window.setScene(new Scene(root, 600, 400));
-    }
+        //Parent root = FXMLLoader.load(getClass().getResource("ticketSummary.fxml"));
+        //Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        //window.setScene(new Scene(root, 600, 400));
 
 
-    @FXML
-    void payForTicket(ActionEvent event) throws Exception {
-        this.boughtTicket = ClientUI.getClient().buyTicketForScreening(selectedScreening, selectedDiscount);
-
-        Parent root = FXMLLoader.load(getClass().getResource("ticketInfo.fxml"));
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        window.setScene(new Scene(root, 600, 400));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ticketSummary.fxml"));
+        Parent root = (Parent) loader.load();
+        TicketSummaryController ticketSummaryController = loader.getController();
+        ticketSummaryController.setValues(ClientUI.getClient(), selectedScreening, selectedDiscount);
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root, 600, 400));
     }
 
     @FXML
@@ -197,14 +186,6 @@ public class ClientUIController {
                 } catch (Exception ignore) {}
                 screeningsList.setText(screeningsList.getText() + "Seans numer " + (i+1) + ": " + timeFormat.format(s.getScreeningDateTime()) + " Film- " + s.getMovieOnScreening().getTitle() + " " + employeeWarning + "\n");
             }
-        }
-
-        if(ticketSummaryLabel != null) {
-            ticketSummaryLabel.setText("Twój bilet kosztuje " + Ticket.checkPriceWithDiscount(selectedScreening, selectedDiscount) + "zł");
-        }
-
-        if(ticketCodeLabel != null) {
-            ticketCodeLabel.setText("Twój bilet ma numer " + boughtTicket.getTicketCode());
         }
     }
 }
