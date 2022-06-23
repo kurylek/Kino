@@ -23,16 +23,12 @@ public class ClientUIController {
     private static List<Screening> screeningsAtDate;
     private static String date;
     private static Screening selectedScreening;
-    private static EnumTicketType selectedDiscount;
 
     @FXML
     private DatePicker dateInput;
 
     @FXML
     private Button buyTicketButton;
-
-    @FXML
-    private RadioButton normalTicket, reducedTicket;
 
     @FXML
     private Label loggedUserLabel;
@@ -116,15 +112,20 @@ public class ClientUIController {
             if(selectedScreening.getScreeningStatus() != EnumScreeningStatus.PLANNED){
                 badScreeningInputLabel.setText("Ten seans zakończył się, lub jest w trakcie!");
             }else {
-                Parent root;
                 if(!selectedScreening.canBuyTicket()){
-                    root = FXMLLoader.load(getClass().getResource("noTicketsForScreening.fxml"));
-                }else {
-                    root = FXMLLoader.load(getClass().getResource("selectTicketDiscount.fxml"));
-                }
+                    Parent root = FXMLLoader.load(getClass().getResource("noTicketsForScreening.fxml"));
 
-                Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                window.setScene(new Scene(root, 600, 400));
+                    Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                    window.setScene(new Scene(root, 600, 400));
+                }else {
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("selectTicketDiscount.fxml"));
+                    Parent root = (Parent) loader.load();
+                    SelectTicketDiscountController selectTicketDiscountController = loader.getController();
+                    selectTicketDiscountController.setValues(ClientUI.getClient(), selectedScreening);
+                    Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                    stage.setScene(new Scene(root, 600, 400));
+                }
             }
         }catch (NumberFormatException e) {
             badScreeningInputLabel.setText("Wprowadzono niepoprawny numer seansu!");
@@ -140,27 +141,6 @@ public class ClientUIController {
         }else {
             buyTicketButton.setDisable(false);
         }
-    }
-
-    @FXML
-    void selectDiscount(ActionEvent event) throws IOException {
-        if(normalTicket.isSelected()){
-            selectedDiscount = EnumTicketType.NORMAL;
-        }else {
-            selectedDiscount = EnumTicketType.REDUCED;
-        }
-
-        //Parent root = FXMLLoader.load(getClass().getResource("ticketSummary.fxml"));
-        //Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        //window.setScene(new Scene(root, 600, 400));
-
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ticketSummary.fxml"));
-        Parent root = (Parent) loader.load();
-        TicketSummaryController ticketSummaryController = loader.getController();
-        ticketSummaryController.setValues(ClientUI.getClient(), selectedScreening, selectedDiscount);
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root, 600, 400));
     }
 
     @FXML

@@ -25,10 +25,10 @@ public class CheckMovie_Screening_ScreeningRoom {
         //Screening error2 = new Screening("15-06-2022", "17:30", BigDecimal.valueOf(25), m1, sr1); //Ends when other screening is ongoing
         Screening s2 = new Screening("15-06-2022", "19:30", BigDecimal.valueOf(25), m1, sr1);
         Screening s3 = new Screening("15-06-2022", "18:00", BigDecimal.valueOf(25), m2, sr2);
-        Screening s4 = new Screening("23-06-2022", "18:00", BigDecimal.valueOf(25), m2, sr2);
-        Screening s5 = new Screening("23-06-2022", "08:00", BigDecimal.valueOf(25), m2, sr1);
-        Screening s6 = new Screening("23-06-2022", "11:00", BigDecimal.valueOf(25), m2, sr2);
-        Screening s7 = new Screening("23-06-2022", "19:00", BigDecimal.valueOf(25), m2, sr2);
+        Screening s4 = new Screening("24-06-2022", "18:00", BigDecimal.valueOf(25), m2, sr2);
+        Screening s5 = new Screening("24-06-2022", "08:00", BigDecimal.valueOf(25), m2, sr1);
+        Screening s6 = new Screening("24-06-2022", "11:00", BigDecimal.valueOf(25), m2, sr2);
+        Screening s7 = new Screening("24-06-2022", "19:00", BigDecimal.valueOf(25), m2, sr2);
 
         System.out.println("Screenings at sr1 at 15-06-2022:");
         for(Screening s : sr1.getScreeningsAtDate("15-06-2022")){
