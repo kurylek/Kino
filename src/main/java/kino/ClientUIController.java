@@ -1,7 +1,5 @@
 package kino;
 
-import enums.EnumScreeningStatus;
-import enums.EnumTicketType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import models.Screening;
 
@@ -21,9 +18,6 @@ import java.util.List;
 
 public class ClientUIController {
     private static List<Screening> screeningsAtDate;
-    private static String date;
-    private static Screening selectedScreening;
-
     @FXML
     private DatePicker dateInput;
 
@@ -32,18 +26,6 @@ public class ClientUIController {
 
     @FXML
     private Label loggedUserLabel;
-
-    @FXML
-    private Label badScreeningInputLabel;
-
-    @FXML
-    private Label screeningsAtDateLabel;
-
-    @FXML
-    private TextField screeningInput;
-
-    @FXML
-    private TextArea screeningsList;
 
     @FXML
     void showScreenings(ActionEvent event) throws IOException {
@@ -64,17 +46,20 @@ public class ClientUIController {
             SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
             Date d = inputFormat.parse(String.valueOf(dateInput.getValue()));
             String outputValue = outputFormat.format(d);
-            date = outputValue;
 
-            Parent root;
             screeningsAtDate = Screening.getScreeningsAtDate(outputValue);
             if (screeningsAtDate.size() == 0) {
-                root = FXMLLoader.load(getClass().getResource("noScreeningsAtDate.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("noScreeningsAtDate.fxml"));
+                Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                window.setScene(new Scene(root, 600, 400));
             }else {
-                root = FXMLLoader.load(getClass().getResource("screeningsAtDate.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("screeningsAtDate.fxml"));
+                Parent root = (Parent) loader.load();
+                ScreeningsAtDateController screeningsAtDateController = loader.getController();
+                screeningsAtDateController.setValues(ClientUI.getClient(), outputValue);
+                Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(root, 600, 400));
             }
-            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            window.setScene(new Scene(root, 600, 400));
         }
     }
 
@@ -103,47 +88,6 @@ public class ClientUIController {
     }
 
     @FXML
-    void buyTicket(ActionEvent event) throws IOException {
-        String input = screeningInput.getText();
-        try {
-            int selectedScreeningNumber = Integer.parseInt(input);
-            badScreeningInputLabel.setText("");
-            selectedScreening = screeningsAtDate.get(selectedScreeningNumber-1);
-            if(selectedScreening.getScreeningStatus() != EnumScreeningStatus.PLANNED){
-                badScreeningInputLabel.setText("Ten seans zakończył się, lub jest w trakcie!");
-            }else {
-                if(!selectedScreening.canBuyTicket()){
-                    Parent root = FXMLLoader.load(getClass().getResource("noTicketsForScreening.fxml"));
-
-                    Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                    window.setScene(new Scene(root, 600, 400));
-                }else {
-
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("selectTicketDiscount.fxml"));
-                    Parent root = (Parent) loader.load();
-                    SelectTicketDiscountController selectTicketDiscountController = loader.getController();
-                    selectTicketDiscountController.setValues(ClientUI.getClient(), selectedScreening);
-                    Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                    stage.setScene(new Scene(root, 600, 400));
-                }
-            }
-        }catch (NumberFormatException e) {
-            badScreeningInputLabel.setText("Wprowadzono niepoprawny numer seansu!");
-        }catch (IndexOutOfBoundsException e) {
-            badScreeningInputLabel.setText("Wprowadzony numer seansu nie pokrywa się z listą!");
-        }
-    }
-
-    @FXML
-    void changeBuyTicketButton(KeyEvent event) {
-        if(screeningInput.getText() == null || screeningInput.getText().trim().isEmpty()) {
-            buyTicketButton.setDisable(true);
-        }else {
-            buyTicketButton.setDisable(false);
-        }
-    }
-
-    @FXML
     private void initialize() {
         loggedUserLabel.setText("Zalogowano jako: " + ClientUI.getClientName());
 
@@ -151,7 +95,7 @@ public class ClientUIController {
             buyTicketButton.setDisable(true);
         }
 
-        if(screeningsList != null) {
+        /*if(screeningsList != null) {
             Screening.updateScreeningStatus();
             screeningsAtDateLabel.setText("Lista seansów w dniu " + date);
             screeningsList.setEditable(false);
@@ -166,6 +110,6 @@ public class ClientUIController {
                 } catch (Exception ignore) {}
                 screeningsList.setText(screeningsList.getText() + "Seans numer " + (i+1) + ": " + timeFormat.format(s.getScreeningDateTime()) + " Film- " + s.getMovieOnScreening().getTitle() + " " + employeeWarning + "\n");
             }
-        }
+        }*/
     }
 }

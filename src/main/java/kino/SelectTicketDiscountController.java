@@ -57,7 +57,6 @@ public class SelectTicketDiscountController {
 
     }
 
-
     public void setValues(Person client, Screening selectedScreening) {
         this.client = client;
         this.selectedScreening = selectedScreening;
