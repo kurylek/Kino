@@ -130,8 +130,8 @@ public class Person extends ObjectPlus {
         return operate.contains(screeningRoom);
     }
 
-    public void buyTicketForScreening(Screening forScreening, EnumTicketType ticketType) throws Exception {
-        new Ticket(ticketType, forScreening, this);
+    public Ticket buyTicketForScreening(Screening forScreening, EnumTicketType ticketType) throws Exception {
+        return new Ticket(ticketType, forScreening, this);
     }
 
     public void addTicket(Ticket ticket) {

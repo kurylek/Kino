@@ -41,4 +41,8 @@ public class Ticket extends ObjectPlus {
             price = price.multiply(REUCED_TICKET_MULTIPLIER);
         return price;
     }
+
+    public String getTicketCode() {
+        return ticketCode;
+    }
 }

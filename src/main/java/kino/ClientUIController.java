@@ -26,6 +26,7 @@ public class ClientUIController {
     private static String date;
     private static Screening selectedScreening;
     private static EnumTicketType selectedDiscount;
+    private static Ticket boughtTicket;
 
     @FXML
     private DatePicker dateInput;
@@ -47,6 +48,9 @@ public class ClientUIController {
 
     @FXML
     private Label ticketSummaryLabel;
+
+    @FXML
+    private Label ticketCodeLabel;
 
     @FXML
     private TextField screeningInput;
@@ -160,6 +164,16 @@ public class ClientUIController {
         window.setScene(new Scene(root, 600, 400));
     }
 
+
+    @FXML
+    void payForTicket(ActionEvent event) throws Exception {
+        this.boughtTicket = ClientUI.getClient().buyTicketForScreening(selectedScreening, selectedDiscount);
+
+        Parent root = FXMLLoader.load(getClass().getResource("ticketInfo.fxml"));
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        window.setScene(new Scene(root, 600, 400));
+    }
+
     @FXML
     private void initialize() {
         loggedUserLabel.setText("Zalogowano jako: " + ClientUI.getClientName());
@@ -185,8 +199,12 @@ public class ClientUIController {
             }
         }
 
-        if(ticketSummaryLabel != null){
+        if(ticketSummaryLabel != null) {
             ticketSummaryLabel.setText("Twój bilet kosztuje " + Ticket.checkPriceWithDiscount(selectedScreening, selectedDiscount) + "zł");
+        }
+
+        if(ticketCodeLabel != null) {
+            ticketCodeLabel.setText("Twój bilet ma numer " + boughtTicket.getTicketCode());
         }
     }
 }
