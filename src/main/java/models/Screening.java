@@ -24,6 +24,7 @@ public class Screening extends ObjectPlus {
 
     private ScreeningRoom takesPlace;
     private Movie movieOnScreening;
+    private List<Ticket> soldTickets;
 
     public Screening(String date, String time, BigDecimal baseTicketPrice, Movie movie, ScreeningRoom screeningRoom) throws CollidateException, ParseException {
         if(screeningRoom == null) {
@@ -46,6 +47,8 @@ public class Screening extends ObjectPlus {
         this.baseTicketPrice = baseTicketPrice;
         this.screeningStatus = EnumScreeningStatus.PLANNED;
         this.movieOnScreening = movie;
+        this.soldTickets = new ArrayList<>();
+
         movie.addPlayedOn(this);
 
         allScreenings.add(this);
@@ -67,10 +70,6 @@ public class Screening extends ObjectPlus {
         return screeningDateTime;
     }
 
-    public void increaseViewerCount() {
-        this.viewerCount++;
-    }
-
     public String getScreeningNumber() {
         return screeningNumber;
     }
@@ -85,6 +84,10 @@ public class Screening extends ObjectPlus {
 
     public boolean canBuyTicket() {
         return viewerCount<takesPlace.getSeatsCount();
+    }
+
+    public int getViewerCount() {
+        return viewerCount;
     }
 
     public static void setAllScreenings(){
@@ -131,6 +134,11 @@ public class Screening extends ObjectPlus {
                 }
             }
         }
+    }
+
+    public void addTicket(Ticket ticket) {
+        this.soldTickets.add(ticket);
+        this.viewerCount++;
     }
 
     @Override

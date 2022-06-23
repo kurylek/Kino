@@ -1,6 +1,7 @@
 package models;
 
 import enums.EnumPersonType;
+import enums.EnumTicketType;
 import exceptions.AlreadyThatTypeException;
 import objectPlus.ObjectPlus;
 
@@ -18,6 +19,7 @@ public class Person extends ObjectPlus {
     private Address address;
     private EnumSet<EnumPersonType> personTypes;
     private List<ScreeningRoom> operate;
+    private List<Ticket> boughtTickets;
 
     private Person(String firstName, String lastName, String email, String phoneNumber, Address address, EnumPersonType personType) {
         this.firstName = firstName;
@@ -27,6 +29,7 @@ public class Person extends ObjectPlus {
         this.address = address;
         this.personTypes = EnumSet.of(EnumPersonType.PERSON, personType);
         this.operate = new ArrayList<>();
+        this.boughtTickets = new ArrayList<>();
 
         allPersons.add(this);
     }
@@ -125,6 +128,14 @@ public class Person extends ObjectPlus {
             throw new Exception("This person is not an(?) employee"); //TODO
         }
         return operate.contains(screeningRoom);
+    }
+
+    public void buyTicketForScreening(Screening forScreening, EnumTicketType ticketType) throws Exception {
+        new Ticket(ticketType, forScreening, this);
+    }
+
+    public void addTicket(Ticket ticket) {
+        this.boughtTickets.add(ticket);
     }
 
     @Override
