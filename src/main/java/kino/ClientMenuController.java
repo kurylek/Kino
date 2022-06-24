@@ -41,6 +41,19 @@ public class ClientMenuController {
         }
     }
 
+    @FXML
+    void logOut(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("logIn.fxml"));
+        Parent root = (Parent) loader.load();
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root, 600, 400));
+    }
+
+    @FXML
+    void showMyTickets(ActionEvent event) {
+
+    }
+
     public void setValues(Person client) {
         this.client = client;
 
