@@ -138,6 +138,10 @@ public class Person extends ObjectPlus {
         this.boughtTickets.add(ticket);
     }
 
+    public List<Ticket> getBoughtTickets() {
+        return boughtTickets;
+    }
+
     @Override
     public String toString() {
         return "Person{" +

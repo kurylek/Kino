@@ -12,8 +12,9 @@ import javafx.stage.Stage;
 import models.Person;
 import models.Screening;
 import models.Ticket;
+import objectPlus.ObjectPlus;
 
-import java.io.IOException;
+import java.io.*;
 
 public class TicketSummaryController {
     private Person client;
@@ -44,7 +45,8 @@ public class TicketSummaryController {
         ticketInfoController.setValues(client, client.buyTicketForScreening(selectedScreening, selectedDiscount));
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root, 600, 400));
-        //zapis ekstensji!
+
+        ObjectPlus.writeExtent(new ObjectOutputStream(new DataOutputStream(new BufferedOutputStream(new FileOutputStream("D:\\projekt")))));
     }
 
     public void setValues(Person client, Screening selectedScreening, EnumTicketType selectedDiscount) {

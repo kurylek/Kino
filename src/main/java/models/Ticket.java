@@ -4,6 +4,7 @@ import enums.EnumTicketType;
 import objectPlus.ObjectPlus;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 
 public class Ticket extends ObjectPlus {
     private static final BigDecimal REUCED_TICKET_MULTIPLIER = new BigDecimal("0.75");
@@ -44,5 +45,15 @@ public class Ticket extends ObjectPlus {
 
     public String getTicketCode() {
         return ticketCode;
+    }
+
+    @Override
+    public String toString() {
+        //In polish, bc UI is in polish
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+
+        return "Numer biletu: " + ticketCode + ", typ biletu: " + ticketType + ", cena: " + price
+                + "zł, film: " + forScreening.getMovieOnScreening().getTitle() + ", data seansu: "
+                + dateFormat.format(forScreening.getScreeningDateTime());
     }
 }

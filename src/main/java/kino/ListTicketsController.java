@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import models.Person;
+import models.Ticket;
 
 import java.io.IOException;
 
@@ -39,7 +40,12 @@ public class ListTicketsController {
         this.client = client;
 
         loggedUserLabel.setText("Zalogowano jako: " + this.client.getName());
-        expiredScreeningsTickets.setEditable(false);
         upcomingScreeningsTickets.setEditable(false);
+        expiredScreeningsTickets.setEditable(false);
+
+        for(Ticket t : client.getBoughtTickets()) {
+            //only in upcomingScreeningsTickets for simplify
+            upcomingScreeningsTickets.setText(upcomingScreeningsTickets.getText() + t + "\n");
+        }
     }
 }
