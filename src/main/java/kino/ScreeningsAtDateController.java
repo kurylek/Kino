@@ -55,6 +55,16 @@ public class ScreeningsAtDateController {
     }
 
     @FXML
+    void backToMainMenu(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("clientMenu.fxml"));
+        Parent root = (Parent) loader.load();
+        ClientMenuController clientMenuController = loader.getController();
+        clientMenuController.setValues(client);
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root, 600, 400));
+    }
+
+    @FXML
     void buyTicket(ActionEvent event) throws IOException {
         String input = screeningInput.getText();
         try {

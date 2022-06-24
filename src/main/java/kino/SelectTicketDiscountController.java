@@ -45,6 +45,16 @@ public class SelectTicketDiscountController {
     }
 
     @FXML
+    void backToMainMenu(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("clientMenu.fxml"));
+        Parent root = (Parent) loader.load();
+        ClientMenuController clientMenuController = loader.getController();
+        clientMenuController.setValues(client);
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root, 600, 400));
+    }
+
+    @FXML
     void selectDiscount(ActionEvent event) throws IOException {
         if(normalTicket.isSelected()){
             selectedDiscount = EnumTicketType.NORMAL;
