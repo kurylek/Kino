@@ -65,12 +65,13 @@ public class ScreeningsAtDateController {
                 badScreeningInputLabel.setText("Ten seans zakończył się, lub jest w trakcie!");
             }else {
                 if(!selectedScreening.canBuyTicket()){
-                    Parent root = FXMLLoader.load(getClass().getResource("noTicketsForScreening.fxml"));
-
-                    Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                    window.setScene(new Scene(root, 600, 400));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("noTicketsForScreening.fxml"));
+                    Parent root = (Parent) loader.load();
+                    NoTicketsForScreeningController noTicketsForScreeningController = loader.getController();
+                    noTicketsForScreeningController.setValues(client, dateToList);
+                    Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                    stage.setScene(new Scene(root, 600, 400));
                 }else {
-
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("selectTicketDiscount.fxml"));
                     Parent root = (Parent) loader.load();
                     SelectTicketDiscountController selectTicketDiscountController = loader.getController();

@@ -22,8 +22,8 @@ public class NoScreeningsController {
     void backToMainMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("clientMenu.fxml"));
         Parent root = (Parent) loader.load();
-        ClientUIController clientUIController = loader.getController();
-        clientUIController.setValues(client);
+        ClientMenuController clientMenuController = loader.getController();
+        clientMenuController.setValues(client);
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root, 600, 400));
     }
