@@ -71,7 +71,7 @@ public class ScreeningsAtDateController {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("selectTicketDiscount.fxml"));
                     Parent root = (Parent) loader.load();
                     SelectTicketDiscountController selectTicketDiscountController = loader.getController();
-                    selectTicketDiscountController.setValues(ClientUI.getClient(), selectedScreening);
+                    selectTicketDiscountController.setValues(ClientUI.getClient(), selectedScreening, dateToList);
                     Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
                     stage.setScene(new Scene(root, 600, 400));
                 }

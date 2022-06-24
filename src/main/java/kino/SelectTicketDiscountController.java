@@ -20,6 +20,7 @@ public class SelectTicketDiscountController {
     private Person client;
     private Screening selectedScreening;
     private EnumTicketType selectedDiscount;
+    private String selectedDate;
 
     @FXML
     private Label loggedUserLabel;
@@ -35,9 +36,12 @@ public class SelectTicketDiscountController {
 
     @FXML
     void backToScreeningsList(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("screeningsAtDate.fxml"));
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        window.setScene(new Scene(root, 600, 400));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("screeningsAtDate.fxml"));
+        Parent root = (Parent) loader.load();
+        ScreeningsAtDateController screeningsAtDateController = loader.getController();
+        screeningsAtDateController.setValues(client, selectedDate);
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root, 600, 400));
     }
 
     @FXML
@@ -54,12 +58,12 @@ public class SelectTicketDiscountController {
         ticketSummaryController.setValues(client, selectedScreening, selectedDiscount);
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root, 600, 400));
-
     }
 
-    public void setValues(Person client, Screening selectedScreening) {
+    public void setValues(Person client, Screening selectedScreening, String selectedDate) {
         this.client = client;
         this.selectedScreening = selectedScreening;
+        this.selectedDate = selectedDate;
 
         loggedUserLabel.setText("Zalogowano jako: " + this.client.getName());
     }
