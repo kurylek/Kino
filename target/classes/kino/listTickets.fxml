@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kino.ListTicketsController">
+   <children>
+      <Label fx:id="loggedUserLabel" alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="580.0" text="Zalogowano jako:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0">
+      </Label>
+      <Label alignment="CENTER" prefHeight="60.0" prefWidth="600.0" text="Lista biletów" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+         <font>
+            <Font name="System Bold" size="31.0" />
+         </font>
+      </Label>
+      <Button mnemonicParsing="false" onAction="#backToMainMenu" prefHeight="30.0" prefWidth="200.0" text="Powrót" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
+      <TextArea fx:id="upcomingScreeningsTickets" layoutX="200.0" layoutY="118.0" prefHeight="170.0" prefWidth="471.0" wrapText="true" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="130.0" />
+      <Label alignment="CENTER" layoutX="85.0" layoutY="124.0" text="Bilety na nadchodzące seanse" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="expiredScreeningsTickets" layoutX="60.0" layoutY="210.0" prefHeight="170.0" prefWidth="471.0" wrapText="true" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="230.0" />
+      <Label alignment="CENTER" layoutX="82.0" layoutY="208.0" text="Bilety na zakończone seanse" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="210.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

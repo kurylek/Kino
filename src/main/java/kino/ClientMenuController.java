@@ -50,17 +50,19 @@ public class ClientMenuController {
     }
 
     @FXML
-    void showMyTickets(ActionEvent event) {
-
+    void showMyTickets(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("listTickets.fxml"));
+        Parent root = (Parent) loader.load();
+        ListTicketsController listTicketsController = loader.getController();
+        listTicketsController.setValues(client);
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root, 600, 400));
     }
 
     public void setValues(Person client) {
         this.client = client;
 
         loggedUserLabel.setText("Zalogowano jako: " + this.client.getName());
-
-        if(buyTicketButton != null) {
-            buyTicketButton.setDisable(true);
-        }
+        buyTicketButton.setDisable(true);
     }
 }
