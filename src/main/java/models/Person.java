@@ -133,7 +133,10 @@ public class Person extends ObjectPlus {
         return operate.contains(screeningRoom);
     }
 
-    public boolean canBeBusy(Screening screening) throws ParseException {
+    public boolean canBeBusy(Screening screening) throws Exception {
+        if(!this.personTypes.contains(EnumPersonType.EMPLOYEE)) {
+            throw new Exception("This person is not an(?) employee"); //TODO
+        }
         if(operate.contains(screening.getTakesPlace())) {
             return false;
         }
