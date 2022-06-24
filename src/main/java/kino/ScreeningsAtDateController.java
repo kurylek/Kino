@@ -1,6 +1,7 @@
 package kino;
 
 import enums.EnumScreeningStatus;
+import exceptions.WrongPersonTypeException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,7 @@ import models.Person;
 import models.Screening;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -128,7 +130,7 @@ public class ScreeningsAtDateController {
                 if(this.client.canBeBusy(s)) {
                     employeeWarning = "\tW sali, którą obsługujesz jest w tym czasie seans, sprawdź czy masz wolne!";
                 }
-            } catch (Exception ignore) {}
+            }catch (WrongPersonTypeException | ParseException ignore) {}
             screeningsList.setText(screeningsList.getText() + "Seans numer " + (i+1) + ": " + timeFormat.format(s.getScreeningDateTime()) + " Film- " + s.getMovieOnScreening().getTitle() + " " + employeeWarning + "\n");
         }
     }

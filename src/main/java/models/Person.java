@@ -3,6 +3,7 @@ package models;
 import enums.EnumPersonType;
 import enums.EnumTicketType;
 import exceptions.AlreadyThatTypeException;
+import exceptions.WrongPersonTypeException;
 import objectPlus.ObjectPlus;
 
 import java.text.ParseException;
@@ -115,7 +116,7 @@ public class Person extends ObjectPlus {
 
     public void addScreeningRoomToOperate(ScreeningRoom screeningRoom) throws Exception {
         if(!this.personTypes.contains(EnumPersonType.EMPLOYEE)) {
-            throw new Exception("This person is not an(?) employee"); //TODO
+            throw new WrongPersonTypeException("This person is not an(?) employee");
         }
         if(screeningRoom == null) {
             throw new Exception("Given screening room is null");//TODO własny exc
@@ -126,16 +127,16 @@ public class Person extends ObjectPlus {
         }
     }
 
-    public boolean operateOn(ScreeningRoom screeningRoom) throws Exception {
+    public boolean operateOn(ScreeningRoom screeningRoom) throws WrongPersonTypeException {
         if(!this.personTypes.contains(EnumPersonType.EMPLOYEE)) {
-            throw new Exception("This person is not an(?) employee"); //TODO
+            throw new WrongPersonTypeException("This person is not an(?) employee");
         }
         return operate.contains(screeningRoom);
     }
 
-    public boolean canBeBusy(Screening screening) throws Exception {
+    public boolean canBeBusy(Screening screening) throws WrongPersonTypeException, ParseException {
         if(!this.personTypes.contains(EnumPersonType.EMPLOYEE)) {
-            throw new Exception("This person is not an(?) employee"); //TODO
+            throw new WrongPersonTypeException("This person is not an(?) employee");
         }
         if(operate.contains(screening.getTakesPlace())) {
             return false;
