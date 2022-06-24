@@ -122,8 +122,11 @@ public class ScreeningsAtDateController {
             Screening s = screeningsAtDate.get(i);
             String employeeWarning = "";
             try {
-                if(this.client.operateOn(s.getTakesPlace())){
-                    employeeWarning = "Obsługujesz tę salę, sprawdź czy masz wolne!";
+                if(this.client.operateOn(s.getTakesPlace())) {
+                    employeeWarning = "\tObsługujesz tę salę, sprawdź czy masz wolne!";
+                }
+                if(this.client.canBeBusy(s)) {
+                    employeeWarning = "\tW sali, którą obsługujesz jest w tym czasie seans, sprawdź czy masz wolne!";
                 }
             } catch (Exception ignore) {}
             screeningsList.setText(screeningsList.getText() + "Seans numer " + (i+1) + ": " + timeFormat.format(s.getScreeningDateTime()) + " Film- " + s.getMovieOnScreening().getTitle() + " " + employeeWarning + "\n");

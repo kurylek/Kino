@@ -5,7 +5,10 @@ import enums.EnumTicketType;
 import exceptions.AlreadyThatTypeException;
 import objectPlus.ObjectPlus;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -128,6 +131,32 @@ public class Person extends ObjectPlus {
             throw new Exception("This person is not an(?) employee"); //TODO
         }
         return operate.contains(screeningRoom);
+    }
+
+    public boolean canBeBusy(Screening screening) throws ParseException {
+        if(operate.contains(screening.getTakesPlace())) {
+            return false;
+        }
+        Date screeningDate = screening.getScreeningDateTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        List<Screening> screeningsToCheck = Screening.getScreeningsAtDate(dateFormat.format(screeningDate));
+
+        Date screeningStartTime = timeFormat.parse(timeFormat.format(screeningDate));
+        Date screeningEndTime = new Date(screeningStartTime.getTime() + (60000L * screening.getMovieOnScreening().getDuration()));
+
+        for(Screening s : screeningsToCheck) {
+            if(operate.contains(s.getTakesPlace()) && !s.equals(screening)) {
+                Date checkingStartTime = timeFormat.parse(timeFormat.format(s.getScreeningDateTime()));
+                Date checkingEndTime = new Date(checkingStartTime.getTime() + (60000L * s.getMovieOnScreening().getDuration()));
+
+                if(checkingStartTime.compareTo(screeningEndTime) < 0 && checkingEndTime.compareTo(screeningStartTime) > 0) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     public Ticket buyTicketForScreening(Screening forScreening, EnumTicketType ticketType) throws Exception {
