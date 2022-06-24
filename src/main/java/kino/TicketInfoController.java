@@ -13,10 +13,8 @@ import models.Person;
 import models.Ticket;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class TicketInfoController implements Initializable {
+public class TicketInfoController {
     private Person client;
     private Ticket boughtTicket;
 
@@ -34,10 +32,6 @@ public class TicketInfoController implements Initializable {
         clientMenuController.setValues(client);
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root, 600, 400));
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
     public void setValues(Person client, Ticket boughtTicket) {
