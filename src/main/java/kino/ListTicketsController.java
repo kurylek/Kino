@@ -13,6 +13,7 @@ import models.Person;
 import models.Ticket;
 
 import java.io.IOException;
+import java.util.Date;
 
 public class ListTicketsController {
     private Person client;
@@ -43,9 +44,13 @@ public class ListTicketsController {
         upcomingScreeningsTickets.setEditable(false);
         expiredScreeningsTickets.setEditable(false);
 
+        Date now = new Date();
         for(Ticket t : client.getBoughtTickets()) {
-            //only in upcomingScreeningsTickets for simplify
-            upcomingScreeningsTickets.setText(upcomingScreeningsTickets.getText() + t + "\n");
+            if(now.compareTo(t.getForScreening().getScreeningDateTime()) < 0) {
+                upcomingScreeningsTickets.setText(upcomingScreeningsTickets.getText() + t + "\n");
+            }else {
+                expiredScreeningsTickets.setText(expiredScreeningsTickets.getText() + t + "\n");
+            }
         }
     }
 }

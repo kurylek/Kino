@@ -2,6 +2,7 @@ package checkingMains;
 
 import enums.EnumMovieCategory;
 import enums.EnumScreeningRoomType;
+import enums.EnumTicketType;
 import exceptions.AlreadyThatTypeException;
 import exceptions.CollidateException;
 import models.*;
@@ -69,6 +70,8 @@ public class CheckMovie_Screening_ScreeningRoom {
         }
 
         p4.addScreeningRoomToOperate(sr1);
+        p4.buyTicketForScreening(s1, EnumTicketType.NORMAL);
+        p4.buyTicketForScreening(s7, EnumTicketType.REDUCED);
 
         try {
             ObjectPlus.writeExtent(new ObjectOutputStream(new DataOutputStream(new BufferedOutputStream(new FileOutputStream("D:\\projekt")))));

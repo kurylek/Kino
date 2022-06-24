@@ -47,6 +47,10 @@ public class Ticket extends ObjectPlus {
         return ticketCode;
     }
 
+    public Screening getForScreening() {
+        return forScreening;
+    }
+
     @Override
     public String toString() {
         //In polish, bc UI is in polish
