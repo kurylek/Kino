@@ -11,15 +11,8 @@ import javafx.stage.Stage;
 import models.Screening;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 public class ClientUIController {
-    private static List<Screening> screeningsAtDate;
-    @FXML
-    private DatePicker dateInput;
 
     @FXML
     private Button buyTicketButton;
@@ -29,40 +22,17 @@ public class ClientUIController {
 
     @FXML
     void showScreenings(ActionEvent event) throws IOException {
-        Parent root;
         if(Screening.doScreeningExist()){
-            root = FXMLLoader.load(getClass().getResource("insertScreeningDate.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("insertScreeningDate.fxml"));
+            Parent root = (Parent) loader.load();
+            InsertScreeningDateController insertScreeningDateController = loader.getController();
+            insertScreeningDateController.setValues(ClientUI.getClient());
+            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root, 600, 400));
         }else{
-            root = FXMLLoader.load(getClass().getResource("noScreenings.fxml"));
-        }
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        window.setScene(new Scene(root, 600, 400));
-    }
-
-    @FXML
-    void showScreeningsAtDate(ActionEvent event) throws ParseException, IOException {
-        if(dateInput.getValue() != null){
-            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
-            Date d = inputFormat.parse(String.valueOf(dateInput.getValue()));
-            String outputValue = outputFormat.format(d);
-
-            screeningsAtDate = Screening.getScreeningsAtDate(outputValue);
-            if (screeningsAtDate.size() == 0) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("noScreeningsAtDate.fxml"));
-                Parent root = (Parent) loader.load();
-                NoScreeningsAtDateController noScreeningsAtDateController = loader.getController();
-                noScreeningsAtDateController.setValues(ClientUI.getClient());
-                Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                stage.setScene(new Scene(root, 600, 400));
-            }else {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("screeningsAtDate.fxml"));
-                Parent root = (Parent) loader.load();
-                ScreeningsAtDateController screeningsAtDateController = loader.getController();
-                screeningsAtDateController.setValues(ClientUI.getClient(), outputValue);
-                Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                stage.setScene(new Scene(root, 600, 400));
-            }
+            Parent root = FXMLLoader.load(getClass().getResource("noScreenings.fxml"));
+            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            window.setScene(new Scene(root, 600, 400));
         }
     }
 

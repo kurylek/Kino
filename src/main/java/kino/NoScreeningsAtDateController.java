@@ -20,9 +20,12 @@ public class NoScreeningsAtDateController {
 
     @FXML
     void backToDateInput(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("insertScreeningDate.fxml"));
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        window.setScene(new Scene(root, 600, 400));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("insertScreeningDate.fxml"));
+        Parent root = (Parent) loader.load();
+        InsertScreeningDateController insertScreeningDateController = loader.getController();
+        insertScreeningDateController.setValues(client);
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root, 600, 400));
     }
 
     @FXML
