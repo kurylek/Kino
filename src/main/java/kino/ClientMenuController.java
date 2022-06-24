@@ -32,9 +32,12 @@ public class ClientMenuController {
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, 600, 400));
         }else{
-            Parent root = FXMLLoader.load(getClass().getResource("noScreenings.fxml"));
-            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            window.setScene(new Scene(root, 600, 400));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("noScreenings.fxml"));
+            Parent root = (Parent) loader.load();
+            NoScreeningsController noScreeningsController = loader.getController();
+            noScreeningsController.setValues(client);
+            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root, 600, 400));
         }
     }
 
