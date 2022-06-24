@@ -49,9 +49,12 @@ public class ClientUIController {
 
             screeningsAtDate = Screening.getScreeningsAtDate(outputValue);
             if (screeningsAtDate.size() == 0) {
-                Parent root = FXMLLoader.load(getClass().getResource("noScreeningsAtDate.fxml"));
-                Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                window.setScene(new Scene(root, 600, 400));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("noScreeningsAtDate.fxml"));
+                Parent root = (Parent) loader.load();
+                NoScreeningsAtDateController noScreeningsAtDateController = loader.getController();
+                noScreeningsAtDateController.setValues(ClientUI.getClient());
+                Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(root, 600, 400));
             }else {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("screeningsAtDate.fxml"));
                 Parent root = (Parent) loader.load();
@@ -70,15 +73,6 @@ public class ClientUIController {
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
         window.setScene(new Scene(root, 600, 400));
     }
-
-
-    @FXML
-    void backToDateInput(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("insertScreeningDate.fxml"));
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        window.setScene(new Scene(root, 600, 400));
-    }
-
 
     @FXML
     void backToScreeningsList(ActionEvent event) throws IOException {
