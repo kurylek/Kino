@@ -10,20 +10,6 @@ import objectPlus.ObjectPlus;
 import java.io.*;
 
 public class ClientUI extends Application {
-    private static Person client;
-
-    public static void setClient(Person c) {
-        client = c;
-    }
-
-    public static String getClientName() {
-        return client.getName();
-    }
-
-    public static Person getClient() {
-        return client;
-    }
-
     @Override
     public void start(Stage stage) throws IOException {
         try {
@@ -35,8 +21,6 @@ public class ClientUI extends Application {
         }
 
         FXMLLoader fxmlLoader = new FXMLLoader(ClientUI.class.getResource("logIn.fxml"));
-        //FXMLLoader fxmlLoader = new FXMLLoader(ClientUI.class.getResource("clientMenu.fxml"));
-        //client = Person.createClientAccount("Jan", "Kowalski", "kowalski@gmail.com");
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setTitle("Menu użytkownika");
         stage.setMinWidth(616);

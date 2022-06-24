@@ -13,7 +13,6 @@ import models.Person;
 
 
 public class LogInController {
-
     @FXML
     private Label clientNotFoundLabel;
     @FXML
@@ -23,12 +22,14 @@ public class LogInController {
     void loginIn(ActionEvent event) {
 
         try {
-            Person p = Person.getClientByEmail(emailInput.getText());
-            ClientUI.setClient(p);
+            Person client = Person.getClientByEmail(emailInput.getText());
 
-            Parent root = FXMLLoader.load(getClass().getResource("clientMenu.fxml"));
-            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            window.setScene(new Scene(root, 600, 400));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("clientMenu.fxml"));
+            Parent root = (Parent) loader.load();
+            ClientUIController clientUIController = loader.getController();
+            clientUIController.setValues(client);
+            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root, 600, 400));
         } catch (Exception e) {
             clientNotFoundLabel.setText("Nie znaleziono klienta o takim emailu!");
         }

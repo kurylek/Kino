@@ -3,28 +3,20 @@ package kino;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import models.Person;
-import models.Ticket;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class TicketInfoController implements Initializable {
+public class NoScreeningsController {
     private Person client;
-    private Ticket boughtTicket;
 
     @FXML
     private Label loggedUserLabel;
-
-    @FXML
-    private Label ticketCodeLabel;
 
     @FXML
     void backToMainMenu(ActionEvent event) throws IOException {
@@ -36,15 +28,9 @@ public class TicketInfoController implements Initializable {
         stage.setScene(new Scene(root, 600, 400));
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-    }
-
-    public void setValues(Person client, Ticket boughtTicket) {
+    public void setValues(Person client) {
         this.client = client;
-        this.boughtTicket = boughtTicket;
 
         loggedUserLabel.setText("Zalogowano jako: " + this.client.getName());
-        ticketCodeLabel.setText("Twój bilet ma numer " + this.boughtTicket.getTicketCode());
     }
 }
