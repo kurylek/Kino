@@ -3,6 +3,7 @@ package kino;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import objectPlus.ObjectPlus;
 
@@ -24,6 +25,7 @@ public class ClientUI extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(ClientUI.class.getResource("logIn.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setTitle("Menu użytkownika");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         stage.setMinWidth(616);
         stage.setWidth(616);
         stage.setMinHeight(400);
