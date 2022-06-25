@@ -20,5 +20,10 @@ public class ReadAndListExtends {
         ObjectPlus.showExtent(MovieTimedLicense.class);
         ObjectPlus.showExtent(MovieNoTimeLimitLicense.class);
         ObjectPlus.showExtent(Person.class);
+
+        Movie.deleteMoviesWithExpiredLicense();
+
+        ObjectPlus.showExtent(MovieTimedLicense.class);
+        ObjectPlus.showExtent(MovieNoTimeLimitLicense.class);
     }
 }

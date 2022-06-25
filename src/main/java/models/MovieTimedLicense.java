@@ -16,4 +16,8 @@ public class MovieTimedLicense extends Movie {
         super(title, duration, category, licensePurchaseDate);
         this.licenseDuration = licenseDuration;
     }
+
+    public int getLicenseDuration() {
+        return licenseDuration;
+    }
 }

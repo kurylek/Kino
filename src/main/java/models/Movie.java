@@ -41,6 +41,10 @@ public abstract class Movie extends ObjectPlus {
         return title;
     }
 
+    public Date getLicensePurchaseDate() {
+        return licensePurchaseDate;
+    }
+
     /***
      * Adds screening to qualified associations, where key is screening number
      * @param screening Screening to add
@@ -50,6 +54,21 @@ public abstract class Movie extends ObjectPlus {
             playedOn.put(screening.getScreeningNumber(), screening);
             playsInCurrentYear++;
         }
+    }
+
+    public static void deleteMoviesWithExpiredLicense() {
+        try {
+            List<MovieTimedLicense> timedLicenseMovies = (List<MovieTimedLicense>) ObjectPlus.getExtent(MovieTimedLicense.class);
+            List<MovieTimedLicense> moviesToRemove = new ArrayList<>();
+            for (MovieTimedLicense m : timedLicenseMovies) {
+                Date now = new Date();
+                Date licenseExpiryDate = new Date(m.getLicensePurchaseDate().getTime() + (86400000L * m.getLicenseDuration())); //86400000 = 1000 * 60 * 60 * 24- one day in msec
+                if (now.compareTo(licenseExpiryDate) > 0) { //Check if license is expired
+                    moviesToRemove.add(m);
+                }
+            }
+            timedLicenseMovies.removeAll(moviesToRemove); //remove movies with expired license from extension
+        } catch (ClassNotFoundException ignore) {}
     }
 
     @Override
