@@ -4,9 +4,8 @@ import models.*;
 import objectPlus.ObjectPlus;
 
 import java.io.*;
-import java.util.List;
 
-public class ReadAndListAllExtends {
+public class ReadAndListExtends {
     public static void main(String[] args) throws Exception {
         try {
             ObjectPlus.readExtent(new ObjectInputStream(new DataInputStream(new BufferedInputStream(new FileInputStream("D:\\projekt")))));
@@ -21,10 +20,5 @@ public class ReadAndListAllExtends {
         ObjectPlus.showExtent(MovieTimedLicense.class);
         ObjectPlus.showExtent(MovieNoTimeLimitLicense.class);
         ObjectPlus.showExtent(Person.class);
-
-        List<Person> p = (List<Person>) ObjectPlus.getExtent(Person.class);
-        System.out.println(p.size());
-
-        System.out.println(Screening.doScreeningExist());
     }
 }

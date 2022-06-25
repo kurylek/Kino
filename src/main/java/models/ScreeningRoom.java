@@ -3,6 +3,7 @@ package models;
 import enums.EnumPersonType;
 import enums.EnumScreeningRoomType;
 import exceptions.PartConnectedException;
+import exceptions.WrongPersonTypeException;
 import objectPlus.ObjectPlus;
 
 import java.text.ParseException;
@@ -28,6 +29,11 @@ public class ScreeningRoom extends ObjectPlus {
         this.operatedBy = new ArrayList<>();
     }
 
+    /***
+     * Add given speaker to screening room speakers list
+     * @param speaker Speaker to add
+     * @throws PartConnectedException Threw when given speaker is connected to other screening room
+     */
     public void addSpeaker(Speaker speaker) throws PartConnectedException {
         if(!speakers.contains(speaker)){
             if(allSpeakers.contains(speaker)) {
@@ -49,6 +55,14 @@ public class ScreeningRoom extends ObjectPlus {
         this.listOfScreenings.add(screening);
     }
 
+    /***
+     * Check if screening room is busy
+     * @param date Date when we want to check if screening room is busy
+     * @param time Time when we want to check if screening room is busy
+     * @param movieDuration Duration of movie that will be played
+     * @return Return if screening room is busy at this time
+     * @throws ParseException Threw when error in parsing date/time
+     */
     public boolean isBusyAt(String date, String time, int movieDuration) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -69,6 +83,11 @@ public class ScreeningRoom extends ObjectPlus {
         return false;
     }
 
+    /***
+     * Get screening at given date
+     * @param date Date on which we want to get screenings
+     * @return Screenings at given date
+     */
     public List<Screening> getScreeningsAtDate(String date) {
         List<Screening> result = new ArrayList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -92,12 +111,17 @@ public class ScreeningRoom extends ObjectPlus {
         }
     }
 
-    public void addOperatedBy(Person operator) throws Exception {
+    /***
+     * Adds given employee to operate on screening room
+     * @param operator Employee that will operate on this screening room
+     * @throws WrongPersonTypeException Threw when given person is not an employee
+     */
+    public void addOperatedBy(Person operator) throws WrongPersonTypeException {
         if(operator == null) {
-            throw new Exception("Given person room is null");//TODO własny exc
+            throw new NullPointerException("Given person room is null");
         }
         if(!operator.getPersonTypes().contains(EnumPersonType.EMPLOYEE)) {
-            throw new Exception("Given person is not an(?) employee"); //TODO
+            throw new WrongPersonTypeException("Given person is not an employee");
         }
         if(!operatedBy.contains(operator)) {
             operatedBy.add(operator);

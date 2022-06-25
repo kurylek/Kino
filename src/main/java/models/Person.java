@@ -3,6 +3,7 @@ package models;
 import enums.EnumPersonType;
 import enums.EnumTicketType;
 import exceptions.AlreadyThatTypeException;
+import exceptions.ClientDoNotExistException;
 import exceptions.WrongPersonTypeException;
 import objectPlus.ObjectPlus;
 
@@ -54,6 +55,14 @@ public class Person extends ObjectPlus {
         return person;
     }
 
+    /***
+     * Hire person to become employee
+     * @param street Employee address info- street
+     * @param number Employee address info- number
+     * @param zipCode Employee address info- zip code
+     * @param city Employee address info- city
+     * @throws AlreadyThatTypeException Threw when person is already an employee
+     */
     public void hire(String street, String number, String zipCode, String city) throws AlreadyThatTypeException {
         if(personTypes.contains(EnumPersonType.EMPLOYEE)) {
             throw new AlreadyThatTypeException("This person is already an employee!");
@@ -63,6 +72,10 @@ public class Person extends ObjectPlus {
         address = new Address(street, number, zipCode, city);
     }
 
+    /***
+     * Fire employee
+     * @throws AlreadyThatTypeException Threw when person is not an employee
+     */
     public void fire() throws AlreadyThatTypeException {
         if(!personTypes.contains(EnumPersonType.EMPLOYEE)) {
             throw new AlreadyThatTypeException("This person isn't an employee!");
@@ -73,6 +86,12 @@ public class Person extends ObjectPlus {
         address = null;
     }
 
+    /***
+     * Make employee client account
+     * @param email Client email
+     * @param phoneNumber Client phone number
+     * @throws AlreadyThatTypeException Threw when person is already client
+     */
     public void becomeClient(String email, String phoneNumber) throws AlreadyThatTypeException {
         if(personTypes.contains(EnumPersonType.CLIENT)) {
             throw new AlreadyThatTypeException("This person is already a client!");
@@ -83,11 +102,18 @@ public class Person extends ObjectPlus {
         this.phoneNumber = phoneNumber;
     }
 
-
+    /***
+     * Make employee client account
+     * @param email Client email
+     * @throws AlreadyThatTypeException Threw when person is already client
+     */
     public void becomeClient(String email) throws AlreadyThatTypeException {
         becomeClient(email, null);
     }
 
+    /***
+     * Load all person from ObjectPlus
+     */
     public static void setAllPersons(){
         try {
             allPersons = (List<Person>) ObjectPlus.getExtent(Person.class);
@@ -96,14 +122,19 @@ public class Person extends ObjectPlus {
         }
     }
 
-    public static Person getClientByEmail(String email) throws Exception {
-        Person result = null;
+    /***
+     * Get person by email
+     * @param email Email of client we want
+     * @return Return person with given email
+     * @throws ClientDoNotExistException Threw when client with given email do not exist
+     */
+    public static Person getClientByEmail(String email) throws ClientDoNotExistException {
         for(Person p : allPersons){
             if(p.email != null)
                 if(p.email.equals(email))
                     return p;
         }
-        throw new Exception("No client found!"); //własny exc TODO
+        throw new ClientDoNotExistException("No client found!");
     }
 
     public String getName() {
@@ -114,12 +145,17 @@ public class Person extends ObjectPlus {
         return personTypes;
     }
 
-    public void addScreeningRoomToOperate(ScreeningRoom screeningRoom) throws Exception {
+    /***
+     * Adds screening room to employee operates list
+     * @param screeningRoom Screening room to add
+     * @throws WrongPersonTypeException Threw when given person is not an employee
+     */
+    public void addScreeningRoomToOperate(ScreeningRoom screeningRoom) throws WrongPersonTypeException {
         if(!this.personTypes.contains(EnumPersonType.EMPLOYEE)) {
-            throw new WrongPersonTypeException("This person is not an(?) employee");
+            throw new WrongPersonTypeException("This person is not an employee");
         }
         if(screeningRoom == null) {
-            throw new Exception("Given screening room is null");//TODO własny exc
+            throw new NullPointerException("Given screening room is null");
         }
         if(!operate.contains(screeningRoom)) {
             operate.add(screeningRoom);
@@ -127,18 +163,31 @@ public class Person extends ObjectPlus {
         }
     }
 
+    /***
+     * Check if employee works on given screening room
+     * @param screeningRoom Screening room to check
+     * @return Return true/false if employee operate on given screening room
+     * @throws WrongPersonTypeException Threw when given person is not an employee
+     */
     public boolean operateOn(ScreeningRoom screeningRoom) throws WrongPersonTypeException {
         if(!this.personTypes.contains(EnumPersonType.EMPLOYEE)) {
-            throw new WrongPersonTypeException("This person is not an(?) employee");
+            throw new WrongPersonTypeException("This person is not an employee");
         }
         return operate.contains(screeningRoom);
     }
 
+    /***
+     * Check if employee can be busy on other screenings, that takes place on screening room that he take care of
+     * @param screening Screening to check
+     * @return Return true/false if employee is busy
+     * @throws WrongPersonTypeException Threw when given person is not an Employee
+     * @throws ParseException Threw while formating date
+     */
     public boolean canBeBusy(Screening screening) throws WrongPersonTypeException, ParseException {
-        if(!this.personTypes.contains(EnumPersonType.EMPLOYEE)) {
-            throw new WrongPersonTypeException("This person is not an(?) employee");
+        if(!this.personTypes.contains(EnumPersonType.EMPLOYEE)) { //Check if person is Employee
+            throw new WrongPersonTypeException("This person is not an employee");
         }
-        if(operate.contains(screening.getTakesPlace())) {
+        if(operate.contains(screening.getTakesPlace())) { //Check if person operate on this screening room
             return false;
         }
         Date screeningDate = screening.getScreeningDateTime();
@@ -163,7 +212,7 @@ public class Person extends ObjectPlus {
         return false;
     }
 
-    public Ticket buyTicketForScreening(Screening forScreening, EnumTicketType ticketType) throws Exception {
+    public Ticket buyTicketForScreening(Screening forScreening, EnumTicketType ticketType) {
         return new Ticket(ticketType, forScreening, this);
     }
 
@@ -177,13 +226,7 @@ public class Person extends ObjectPlus {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", address=" + address +
-                ", personTypes=" + personTypes +
-                '}';
+        return firstName + " " + lastName + ", email: " + email +  ", phone number:" + phoneNumber
+                + ", address: " + address ;
     }
 }

@@ -13,7 +13,7 @@ public abstract class Movie extends ObjectPlus {
     private List<EnumMovieCategory> categories;
     private Date licensePurchaseDate;
     private int playsInCurrentYear;
-    private int minViewerAge; // -> ENUM PEGI? | int cant be null!
+    private int minViewerAge;
 
     private Map<String, Screening> playedOn;
 
@@ -41,18 +41,14 @@ public abstract class Movie extends ObjectPlus {
         return title;
     }
 
+    /***
+     * Adds screening to qualified associations, where key is screening number
+     * @param screening Screening to add
+     */
     public void addPlayedOn(Screening screening) {
         if(!playedOn.containsKey(screening.getScreeningNumber())){
             playedOn.put(screening.getScreeningNumber(), screening);
-
-
-        }
-    }
-
-    public void listPlatedOn(){
-        System.out.println("This movie was played on:");
-        for(Screening s : playedOn.values()) {
-            System.out.println(s);
+            playsInCurrentYear++;
         }
     }
 

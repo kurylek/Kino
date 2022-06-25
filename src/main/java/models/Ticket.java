@@ -11,16 +11,15 @@ public class Ticket extends ObjectPlus {
     private EnumTicketType ticketType;
     private BigDecimal price;
     private String ticketCode;
-
     private Person boughtBy;
     private Screening forScreening;
 
-    public Ticket(EnumTicketType ticketType, Screening forScreening, Person boughtBy) throws Exception {
+    public Ticket(EnumTicketType ticketType, Screening forScreening, Person boughtBy) {
         if(forScreening == null) {
-            throw new Exception("Given screening is null"); //TODO Own exc
+            throw new NullPointerException("Given screening is null");
         }
         if(boughtBy == null) {
-            throw new Exception("Given person is null"); //TODO Own exc
+            throw new NullPointerException("Given person is null");
         }
 
         this.ticketType = ticketType;
@@ -31,11 +30,18 @@ public class Ticket extends ObjectPlus {
         forScreening.addTicket(this);
         boughtBy.addTicket(this);
 
+        //TicketCode - [ScreeningNumber][xxx] xxx-Viewer number
         StringBuilder tCode = new StringBuilder(forScreening.getScreeningNumber());
         tCode.append(String.format("%03d", forScreening.getViewerCount()));
         this.ticketCode = String.valueOf(tCode);
     }
 
+    /***
+     * Check what price will ticket have
+     * @param screening Screening to check ticket price
+     * @param ticketType Selected discount type
+     * @return Ticket price
+     */
     public static BigDecimal checkPriceWithDiscount(Screening screening, EnumTicketType ticketType) {
         BigDecimal price = screening.getBaseTicketPrice();
         if(ticketType == EnumTicketType.REDUCED)

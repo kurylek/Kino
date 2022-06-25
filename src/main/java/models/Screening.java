@@ -1,7 +1,6 @@
 package models;
 
 import enums.EnumScreeningStatus;
-import exceptions.AlreadyThatTypeException;
 import exceptions.CollidateException;
 import objectPlus.ObjectPlus;
 
@@ -31,7 +30,7 @@ public class Screening extends ObjectPlus {
             throw new NullPointerException("Given screening room in null!");
         }
         if(screeningRoom.isBusyAt(date, time, movie.getDuration())) {
-            throw new CollidateException("Movie will collidate with over"); //moze zrobic swoj exception?
+            throw new CollidateException("Movie will collidate with over");
         }
         this.takesPlace = screeningRoom;
         screeningRoom.addScreening(this);
@@ -52,14 +51,6 @@ public class Screening extends ObjectPlus {
         movie.addPlayedOn(this);
 
         allScreenings.add(this);
-    }
-
-    public void changeScreeningStatus(EnumScreeningStatus status) throws AlreadyThatTypeException {
-        if(screeningStatus == status){
-            throw new AlreadyThatTypeException("This screening has already this status!");
-        }
-
-        this.screeningStatus = status;
     }
 
     public Movie getMovieOnScreening() {
@@ -90,6 +81,9 @@ public class Screening extends ObjectPlus {
         return viewerCount;
     }
 
+    /***
+     * Load all screenings from ObjectPlus
+     */
     public static void setAllScreenings(){
         try {
             allScreenings = (List<Screening>) ObjectPlus.getExtent(Screening.class);
@@ -98,10 +92,19 @@ public class Screening extends ObjectPlus {
         }
     }
 
+    /***
+     * Check if there are any planned screenings
+     * @return Return true/false if there are any planned screenings
+     */
     public static boolean doScreeningExist(){
         return allScreenings.size() > 0;
     }
 
+    /***
+     * Get screenings at given date
+     * @param date Date of screenings that we want
+     * @return Screenings at given date
+     */
     public static List<Screening> getScreeningsAtDate(String date) {
         List<Screening> result = new ArrayList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -120,13 +123,16 @@ public class Screening extends ObjectPlus {
         return baseTicketPrice;
     }
 
+    /***
+     * Update screenings status
+     */
     public static void updateScreeningStatus(){
         Date now = new Date();
         for(Screening s : allScreenings){
-            if(s.screeningStatus == EnumScreeningStatus.PLANNED){
-                if(now.compareTo(s.screeningDateTime) > 0) {
-                    Date sEndTime = new Date(s.screeningDateTime.getTime() + (60000L * s.getMovieOnScreening().getDuration()));
-                    if (now.compareTo(sEndTime) < 0) {
+            if(s.screeningStatus == EnumScreeningStatus.PLANNED || s.screeningStatus == EnumScreeningStatus.DURING){ //Update only planned/during screenings
+                if(now.compareTo(s.screeningDateTime) > 0) { //Check if screening started
+                    Date sEndTime = new Date(s.screeningDateTime.getTime() + (60000L * s.getMovieOnScreening().getDuration())); //Get screening end time
+                    if (now.compareTo(sEndTime) < 0) { //Check if screening ended
                         s.screeningStatus = EnumScreeningStatus.DURING;
                     }else{
                         s.screeningStatus = EnumScreeningStatus.COMPLETED;
