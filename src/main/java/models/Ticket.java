@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 
 public class Ticket extends ObjectPlus {
-    private static final BigDecimal REUCED_TICKET_MULTIPLIER = new BigDecimal("0.75");
+    private static final BigDecimal REDUCED_TICKET_MULTIPLIER = new BigDecimal("0.75");
     private EnumTicketType ticketType;
     private BigDecimal price;
     private String ticketCode;
@@ -45,7 +45,7 @@ public class Ticket extends ObjectPlus {
     public static BigDecimal checkPriceWithDiscount(Screening screening, EnumTicketType ticketType) {
         BigDecimal price = screening.getBaseTicketPrice();
         if(ticketType == EnumTicketType.REDUCED)
-            price = price.multiply(REUCED_TICKET_MULTIPLIER);
+            price = price.multiply(REDUCED_TICKET_MULTIPLIER);
         return price;
     }
 
@@ -55,6 +55,10 @@ public class Ticket extends ObjectPlus {
 
     public Screening getForScreening() {
         return forScreening;
+    }
+
+    public void printInfo() {
+        System.out.println(this);
     }
 
     @Override
