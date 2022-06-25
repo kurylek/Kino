@@ -15,15 +15,13 @@ public class ReadAndListExtends {
             e.printStackTrace();
         }
 
+        Movie.deleteMoviesWithExpiredLicense();
+        Screening.updateScreeningStatus();
+
         ObjectPlus.showExtent(Screening.class);
         ObjectPlus.showExtent(ScreeningRoom.class);
         ObjectPlus.showExtent(MovieTimedLicense.class);
         ObjectPlus.showExtent(MovieNoTimeLimitLicense.class);
         ObjectPlus.showExtent(Person.class);
-
-        Movie.deleteMoviesWithExpiredLicense();
-
-        ObjectPlus.showExtent(MovieTimedLicense.class);
-        ObjectPlus.showExtent(MovieNoTimeLimitLicense.class);
     }
 }

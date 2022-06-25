@@ -132,19 +132,37 @@ public class Screening extends ObjectPlus {
             if(s.screeningStatus == EnumScreeningStatus.PLANNED || s.screeningStatus == EnumScreeningStatus.DURING){ //Update only planned/during screenings
                 if(now.compareTo(s.screeningDateTime) > 0) { //Check if screening started
                     Date sEndTime = new Date(s.screeningDateTime.getTime() + (60000L * s.getMovieOnScreening().getDuration())); //Get screening end time
-                    if (now.compareTo(sEndTime) < 0) { //Check if screening ended
-                        s.screeningStatus = EnumScreeningStatus.DURING;
-                    }else{
-                        s.screeningStatus = EnumScreeningStatus.COMPLETED;
+                    if(s.viewerCount < minViewerCount) {
+                        s.changeScreeningStatus(EnumScreeningStatus.CANCELLED);
+                    }else {
+                        if (now.compareTo(sEndTime) < 0) { //Check if screening ended
+                            s.changeScreeningStatus(EnumScreeningStatus.DURING);
+                            //s.screeningStatus = EnumScreeningStatus.DURING;
+                        }else{
+                            s.changeScreeningStatus(EnumScreeningStatus.COMPLETED);
+                            //s.screeningStatus = EnumScreeningStatus.COMPLETED;
+                        }
                     }
                 }
             }
         }
     }
 
+    private void changeScreeningStatus(EnumScreeningStatus screeningStatus) {
+        this.screeningStatus = screeningStatus;
+    }
+
     public void addTicket(Ticket ticket) {
         this.soldTickets.add(ticket);
+        increaseViewerCount();
+    }
+
+    private void increaseViewerCount() {
         this.viewerCount++;
+    }
+
+    public void setViewerCount(int viewerCount) {
+        this.viewerCount = viewerCount;
     }
 
     @Override
