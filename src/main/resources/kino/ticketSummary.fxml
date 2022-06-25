@@ -13,12 +13,12 @@
                 <Font name="System Bold" size="31.0" />
             </font>
         </Label>
-        <Button mnemonicParsing="false" onAction="#backToMainMenu" prefHeight="30.0" prefWidth="200.0" text="Anuluj" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
+        <Button cancelButton="true" mnemonicParsing="false" onAction="#backToMainMenu" prefHeight="30.0" prefWidth="200.0" text="Anuluj" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
       <Label fx:id="ticketSummaryLabel" alignment="CENTER" prefHeight="60.0" prefWidth="600.0" text="Twój bilet kosztuje xx zł" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="120.0">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button layoutX="210.0" layoutY="210.0" mnemonicParsing="false" onAction="#payForTicket" prefHeight="30.0" prefWidth="200.0" text="Zapłać" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
+      <Button defaultButton="true" layoutX="210.0" layoutY="210.0" mnemonicParsing="false" onAction="#payForTicket" prefHeight="30.0" prefWidth="200.0" text="Zapłać" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
     </children>
 </AnchorPane>

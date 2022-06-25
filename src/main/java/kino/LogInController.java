@@ -34,4 +34,9 @@ public class LogInController {
             clientNotFoundLabel.setText("Nie znaleziono klienta o takim emailu!");
         }
     }
+
+    @FXML
+    void close(ActionEvent event) {
+
+    }
 }

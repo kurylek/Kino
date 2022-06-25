@@ -18,6 +18,6 @@
             <Font size="24.0" />
          </font>
       </Label>
-        <Button mnemonicParsing="false" onAction="#backToMainMenu" prefHeight="30.0" prefWidth="200.0" text="Powrót" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="200.0" />
+        <Button cancelButton="true" mnemonicParsing="false" onAction="#backToMainMenu" prefHeight="30.0" prefWidth="200.0" text="Powrót" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="200.0" />
     </children>
 </AnchorPane>

@@ -44,11 +44,11 @@ public class CustomData1 {
         //Screening error1 = new Screening("15-06-2022", "18:30", BigDecimal.valueOf(25), m1, sr1); //Starts when other screening is ongoing
         //Screening error2 = new Screening("15-06-2022", "17:30", BigDecimal.valueOf(25), m1, sr1); //Ends when other screening is ongoing
         String today = "25-06-2022";
-        Screening s2 = new Screening(today, "19:30", BigDecimal.valueOf(20), m1, sr1);
+        Screening s2 = new Screening(today, "11:30", BigDecimal.valueOf(20), m1, sr1);
         Screening s3 = new Screening(today, "18:00", BigDecimal.valueOf(25), m2, sr2);
         Screening s4 = new Screening(today, "11:00", BigDecimal.valueOf(30), m2, sr2);
-        Screening s5 = new Screening(today, "19:30", BigDecimal.valueOf(20), m2, sr1);
-        Screening s6 = new Screening(today, "18:30", BigDecimal.valueOf(25), m2, sr1);
+        Screening s5 = new Screening(today, "19:30", BigDecimal.valueOf(20), m1, sr1);
+        Screening s6 = new Screening(today, "18:30", BigDecimal.valueOf(25), m1, sr1);
         Screening s7 = new Screening(today, "19:00", BigDecimal.valueOf(15), m2, sr2);
 
         //Person buy ticket

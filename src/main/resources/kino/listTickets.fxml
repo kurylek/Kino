@@ -15,7 +15,7 @@
             <Font name="System Bold" size="31.0" />
          </font>
       </Label>
-      <Button mnemonicParsing="false" onAction="#backToMainMenu" prefHeight="30.0" prefWidth="200.0" text="Powrót" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
+      <Button cancelButton="true" defaultButton="true" mnemonicParsing="false" onAction="#backToMainMenu" prefHeight="30.0" prefWidth="200.0" text="Powrót" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
       <TextArea fx:id="upcomingScreeningsTickets" layoutX="200.0" layoutY="118.0" prefHeight="170.0" prefWidth="471.0" wrapText="true" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="130.0" />
       <Label alignment="CENTER" layoutX="85.0" layoutY="124.0" text="Bilety na nadchodzące seanse" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
          <font>

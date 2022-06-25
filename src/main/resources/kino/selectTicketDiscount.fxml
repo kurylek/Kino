@@ -15,8 +15,8 @@
                 <Font name="System Bold" size="31.0" />
             </font>
         </Label>
-      <Button layoutX="210.0" layoutY="210.0" mnemonicParsing="false" onAction="#selectDiscount" prefHeight="30.0" prefWidth="200.0" text="Dalej" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
-        <Button mnemonicParsing="false" onAction="#backToScreeningsList" prefHeight="30.0" prefWidth="200.0" text="Powrót" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
+      <Button defaultButton="true" layoutX="210.0" layoutY="210.0" mnemonicParsing="false" onAction="#selectDiscount" prefHeight="30.0" prefWidth="200.0" text="Dalej" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
+        <Button cancelButton="true" mnemonicParsing="false" onAction="#backToScreeningsList" prefHeight="30.0" prefWidth="200.0" text="Powrót" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
       <RadioButton fx:id="normalTicket" layoutX="226.0" layoutY="130.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="132.0" selected="true" text="Bllet normalny" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0">
          <toggleGroup>
             <ToggleGroup fx:id="ticketDiscount" />
