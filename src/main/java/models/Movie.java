@@ -41,6 +41,18 @@ public abstract class Movie extends ObjectPlus {
         return title;
     }
 
+    public List<EnumMovieCategory> getCategories() {
+        return categories;
+    }
+
+    public int getPlaysInCurrentYear() {
+        return playsInCurrentYear;
+    }
+
+    public int getMinViewerAge() {
+        return minViewerAge;
+    }
+
     public Date getLicensePurchaseDate() {
         return licensePurchaseDate;
     }
@@ -87,12 +99,5 @@ public abstract class Movie extends ObjectPlus {
             allMovies.addAll((List<MovieTimedLicense>) ObjectPlus.getExtent(MovieTimedLicense.class));
         } catch (ClassNotFoundException ignore) {}
         return allMovies;
-    }
-
-    @Override
-    public String toString() {
-        return "Movie info {Title- " + title + ", Duration- " + duration + "min, Categories- " + categories +
-                ", License Purchase Date=" + new SimpleDateFormat("dd-MM-yyyy").format(licensePurchaseDate) +
-                ", Played " + playsInCurrentYear + "times this year, Min. viewer age=" + minViewerAge + "}";
     }
 }

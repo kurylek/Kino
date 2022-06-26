@@ -3,6 +3,7 @@ package models;
 import enums.EnumMovieCategory;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class MovieTimedLicense extends Movie {
     private int licenseDuration; //in days
@@ -19,5 +20,17 @@ public class MovieTimedLicense extends Movie {
 
     public int getLicenseDuration() {
         return licenseDuration;
+    }
+
+    @Override
+    public String toString() {
+        String result = "Movie info {Title- " + super.getTitle() + ", Duration- " + super.getDuration() + "min, Categories- " + super.getCategories() +
+                ", License Purchase Date=" + new SimpleDateFormat("dd-MM-yyyy").format(super.getLicensePurchaseDate()) +
+                ", Played " + super.getPlaysInCurrentYear() + "times this year";
+        if(super.getMinViewerAge() > 0) {
+            result += ", Min. viewer age=" + super.getMinViewerAge();
+        }
+        result += ", License duration " + licenseDuration + " days}";
+        return result;
     }
 }
