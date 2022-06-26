@@ -127,6 +127,9 @@ public class Person extends ObjectPlus {
         setAllClients();
     }
 
+    /***
+     * Set allClients map with email as Key, and person as value
+     */
     private static void setAllClients(){
         allClients = new HashMap<>();
         for(Person p : allPersons) {
@@ -142,12 +145,11 @@ public class Person extends ObjectPlus {
      * @throws ClientDoNotExistException Threw when client with given email do not exist
      */
     public static Person getClientByEmail(String email) throws ClientDoNotExistException {
-        for(Person p : allPersons){
-            if(p.email != null)
-                if(p.email.equals(email))
-                    return p;
+        if(allClients.containsKey(email)) {
+            return allClients.get(email);
+        }else {
+            throw new ClientDoNotExistException("No client found!");
         }
-        throw new ClientDoNotExistException("No client found!");
     }
 
     public String getName() {
