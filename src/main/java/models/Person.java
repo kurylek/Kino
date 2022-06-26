@@ -4,18 +4,17 @@ import enums.EnumPersonType;
 import enums.EnumTicketType;
 import exceptions.AlreadyThatTypeException;
 import exceptions.ClientDoNotExistException;
+import exceptions.EmailTakenException;
 import exceptions.WrongPersonTypeException;
 import objectPlus.ObjectPlus;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.List;
+import java.util.*;
 
 public class Person extends ObjectPlus {
     private static List<Person> allPersons = new ArrayList<>();
+    public static Map<String, Person> allClients = new HashMap<>();
 
     private String firstName;
     private String lastName;
@@ -39,14 +38,16 @@ public class Person extends ObjectPlus {
         allPersons.add(this);
     }
 
-    public static Person createClientAccount(String firstName, String lastName, String email, String phoneNumber) {
+    public static Person createClientAccount(String firstName, String lastName, String email, String phoneNumber) throws EmailTakenException {
+        if(allClients.containsKey(email))
+            throw new EmailTakenException("There is account with this email!");
         Person person = new Person(firstName, lastName, email, phoneNumber, null, EnumPersonType.CLIENT);
+        allClients.put(email, person);
         return person;
     }
 
-    public static Person createClientAccount(String firstName, String lastName, String email) {
-        Person person = new Person(firstName, lastName, email, null, null, EnumPersonType.CLIENT);
-        return person;
+    public static Person createClientAccount(String firstName, String lastName, String email) throws EmailTakenException {
+        return createClientAccount(firstName, lastName, email, null);
     }
 
     public static Person createEmployeeAccount(String firstName, String lastName, String street, String number, String zipCode, String city) {
@@ -92,10 +93,13 @@ public class Person extends ObjectPlus {
      * @param phoneNumber Client phone number
      * @throws AlreadyThatTypeException Threw when person is already client
      */
-    public void becomeClient(String email, String phoneNumber) throws AlreadyThatTypeException {
+    public void becomeClient(String email, String phoneNumber) throws AlreadyThatTypeException, EmailTakenException {
         if(personTypes.contains(EnumPersonType.CLIENT)) {
             throw new AlreadyThatTypeException("This person is already a client!");
         }
+        if(allClients.containsKey(email))
+            throw new EmailTakenException("There is account with this email!");
+        allClients.put(email, this);
 
         personTypes.add(EnumPersonType.CLIENT);
         this.email = email;
@@ -107,7 +111,7 @@ public class Person extends ObjectPlus {
      * @param email Client email
      * @throws AlreadyThatTypeException Threw when person is already client
      */
-    public void becomeClient(String email) throws AlreadyThatTypeException {
+    public void becomeClient(String email) throws AlreadyThatTypeException, EmailTakenException {
         becomeClient(email, null);
     }
 
@@ -119,6 +123,15 @@ public class Person extends ObjectPlus {
             allPersons = (List<Person>) ObjectPlus.getExtent(Person.class);
         } catch (ClassNotFoundException e) {
             allPersons = new ArrayList<>();
+        }
+        setAllClients();
+    }
+
+    private static void setAllClients(){
+        allClients = new HashMap<>();
+        for(Person p : allPersons) {
+            if(p.personTypes.contains(EnumPersonType.CLIENT))
+                allClients.put(p.email, p);
         }
     }
 

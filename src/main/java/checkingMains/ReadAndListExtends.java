@@ -24,6 +24,8 @@ public class ReadAndListExtends {
         //ObjectPlus.showExtent(MovieNoTimeLimitLicense.class);
         ObjectPlus.showExtent(Person.class);
 
+        //System.out.println(Person.allClients.keySet());
+
         //System.out.println(Movie.getAllMovies());
     }
 }

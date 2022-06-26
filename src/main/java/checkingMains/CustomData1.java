@@ -26,6 +26,10 @@ public class CustomData1 {
         } catch (AlreadyThatTypeException e) {
             e.printStackTrace();
         }
+        //can't create client account with same emails
+        //p3.becomeClient("test2");
+        //Person.createClientAccount("Test", "Testowy", "test1");
+        //System.out.println(Person.allClients.keySet());
 
         //Screening rooms
         ScreeningRoom sr1 = new ScreeningRoom(1, 60, EnumScreeningRoomType.TYPE_2D);
