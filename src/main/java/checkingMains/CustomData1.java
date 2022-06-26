@@ -44,14 +44,14 @@ public class CustomData1 {
         MovieTimedLicense m3 = new MovieTimedLicense("Movie to delete", 60, EnumMovieCategory.COMEDY, "01-01-2022", 1);
 
         //Screenings
-        Screening s1 = new Screening("15-06-2022", "18:00", BigDecimal.valueOf(20), m1, sr1);
+        Screening s1 = new Screening("25-06-2022", "18:00", BigDecimal.valueOf(20), m1, sr1);
         //Cant create screening when there is planned screening
         //Screening error1 = new Screening("15-06-2022", "18:30", BigDecimal.valueOf(25), m1, sr1); //Starts when other screening is ongoing
         //Screening error2 = new Screening("15-06-2022", "17:30", BigDecimal.valueOf(25), m1, sr1); //Ends when other screening is ongoing
-        String day = "25-06-2022";
-        Screening s2 = new Screening(day, "11:30", BigDecimal.valueOf(20), m1, sr1);
-        Screening s3 = new Screening(day, "18:00", BigDecimal.valueOf(25), m2, sr2);
-        Screening s4 = new Screening(day, "11:00", BigDecimal.valueOf(30), m2, sr2);
+        String day = "26-06-2022";
+        Screening s2 = new Screening(day, "10:00", BigDecimal.valueOf(20), m1, sr1);
+        Screening s3 = new Screening(day, "11:30", BigDecimal.valueOf(25), m2, sr2);
+        Screening s4 = new Screening(day, "13:00", BigDecimal.valueOf(30), m2, sr2);
         Screening s5 = new Screening(day, "22:00", BigDecimal.valueOf(20), m1, sr1);
         Screening s6 = new Screening(day, "23:00", BigDecimal.valueOf(25), m1, sr1);
         Screening s7 = new Screening(day, "22:30", BigDecimal.valueOf(15), m2, sr2);

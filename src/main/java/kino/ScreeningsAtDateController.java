@@ -123,20 +123,20 @@ public class ScreeningsAtDateController {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         for(int i=0; i<screeningsAtDate.size(); i++){
             Screening s = screeningsAtDate.get(i);
-            String warning = "\t";
+            String warning = "";
             if(s.getScreeningStatus() == EnumScreeningStatus.DURING) {
-                warning = "Seans w trakcie";
+                warning = "\tSeans w trakcie";
             }else if(s.getScreeningStatus() == EnumScreeningStatus.COMPLETED) {
-                warning = "Seans zakończony";
+                warning = "\tSeans zakończony";
             }else if(s.getScreeningStatus() == EnumScreeningStatus.CANCELLED) {
-                warning = "Seans odwołany";
+                warning = "\tSeans odwołany";
             }else if(this.client.getPersonTypes().contains(EnumPersonType.EMPLOYEE)){
                 try {
                     if(this.client.operateOn(s.getTakesPlace())) {
-                        warning = "Obsługujesz tę salę, sprawdź czy masz wolne!";
+                        warning = "\tObsługujesz tę salę, sprawdź czy masz wolne!";
                     }
                     if(this.client.canBeBusy(s)) {
-                        warning = "W sali, którą obsługujesz jest w tym czasie seans, sprawdź czy masz wolne!";
+                        warning = "\tW sali, którą obsługujesz jest w tym czasie seans, sprawdź czy masz wolne!";
                     }
                 }catch (WrongPersonTypeException | ParseException ignore) {}
             }
