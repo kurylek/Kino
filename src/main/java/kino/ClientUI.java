@@ -19,15 +19,16 @@ public class ClientUI extends Application {
         try {
             ObjectPlus.readExtent(new ObjectInputStream(new DataInputStream(new BufferedInputStream(new FileInputStream("D:\\projekt")))));
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Couldn't read extent from file!");
         }
 
         FXMLLoader fxmlLoader = new FXMLLoader(ClientUI.class.getResource("logIn.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 400);
         stage.setTitle("Menu użytkownika");
         stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         stage.setMinWidth(616);
-        stage.setWidth(616);
+        //stage.setWidth(616);
+        stage.setWidth(1000);
         stage.setMinHeight(400);
         stage.setHeight(439);
         stage.setScene(scene);

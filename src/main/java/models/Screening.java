@@ -2,14 +2,13 @@ package models;
 
 import enums.EnumScreeningStatus;
 import exceptions.CollidateException;
+import exceptions.ExceededMaxPlaysInYearException;
 import objectPlus.ObjectPlus;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class Screening extends ObjectPlus {
     private static List<Screening> allScreenings = new ArrayList<>();
@@ -25,12 +24,15 @@ public class Screening extends ObjectPlus {
     private Movie movieOnScreening;
     private List<Ticket> soldTickets;
 
-    public Screening(String date, String time, BigDecimal baseTicketPrice, Movie movie, ScreeningRoom screeningRoom) throws CollidateException, ParseException {
+    public Screening(String date, String time, BigDecimal baseTicketPrice, Movie movie, ScreeningRoom screeningRoom) throws CollidateException, ParseException, ExceededMaxPlaysInYearException {
         if(screeningRoom == null) {
             throw new NullPointerException("Given screening room in null!");
         }
         if(screeningRoom.isBusyAt(date, time, movie.getDuration())) {
             throw new CollidateException("Movie will collidate with over");
+        }
+        if(movie.getPlaysInCurrentYear() >= movie.getMyAttribute()) {
+            throw new ExceededMaxPlaysInYearException("This movie can't be played anymore in this year!");
         }
         this.takesPlace = screeningRoom;
         screeningRoom.addScreening(this);
@@ -87,6 +89,12 @@ public class Screening extends ObjectPlus {
     public static void setAllScreenings(){
         try {
             allScreenings = (List<Screening>) ObjectPlus.getExtent(Screening.class);
+            Collections.sort(allScreenings, new Comparator<Screening>() {
+                @Override
+                public int compare(Screening o1, Screening o2) {
+                    return o1.getScreeningDateTime().compareTo(o2.getScreeningDateTime());
+                }
+            });
         } catch (ClassNotFoundException e) {
             allScreenings = new ArrayList<>();
         }

@@ -23,6 +23,11 @@ public class MovieTimedLicense extends Movie {
     }
 
     @Override
+    public int getMyAttribute() {
+        return getLicenseDuration();
+    }
+
+    @Override
     public String toString() {
         String result = "Movie info {Title- " + super.getTitle() + ", Duration- " + super.getDuration() + "min, Categories- " + super.getCategories() +
                 ", License Purchase Date=" + new SimpleDateFormat("dd-MM-yyyy").format(super.getLicensePurchaseDate()) +

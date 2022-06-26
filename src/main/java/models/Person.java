@@ -236,6 +236,12 @@ public class Person extends ObjectPlus {
     }
 
     public List<Ticket> getBoughtTickets() {
+        Collections.sort(boughtTickets, new Comparator<Ticket>() {
+            @Override
+            public int compare(Ticket o1, Ticket o2) {
+                return o1.getForScreening().getScreeningDateTime().compareTo(o2.getForScreening().getScreeningDateTime());
+            }
+        });
         return boughtTickets;
     }
 

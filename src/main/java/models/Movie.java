@@ -100,4 +100,6 @@ public abstract class Movie extends ObjectPlus {
         } catch (ClassNotFoundException ignore) {}
         return allMovies;
     }
+
+    public abstract int getMyAttribute();
 }
