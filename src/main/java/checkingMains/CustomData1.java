@@ -48,13 +48,13 @@ public class CustomData1 {
         Screening s2 = new Screening(day, "11:30", BigDecimal.valueOf(20), m1, sr1);
         Screening s3 = new Screening(day, "18:00", BigDecimal.valueOf(25), m2, sr2);
         Screening s4 = new Screening(day, "11:00", BigDecimal.valueOf(30), m2, sr2);
-        Screening s5 = new Screening(day, "19:30", BigDecimal.valueOf(20), m1, sr1);
-        Screening s6 = new Screening(day, "18:30", BigDecimal.valueOf(25), m1, sr1);
-        Screening s7 = new Screening(day, "22:00", BigDecimal.valueOf(15), m2, sr2);
+        Screening s5 = new Screening(day, "22:00", BigDecimal.valueOf(20), m1, sr1);
+        Screening s6 = new Screening(day, "23:00", BigDecimal.valueOf(25), m1, sr1);
+        Screening s7 = new Screening(day, "22:30", BigDecimal.valueOf(15), m2, sr2);
 
         //Change viewers count
         s1.setViewerCount(20);
-        s7.setViewerCount(10);
+        s6.setViewerCount(60);
 
         //Person buy ticket
         p4.buyTicketForScreening(s1, EnumTicketType.NORMAL);

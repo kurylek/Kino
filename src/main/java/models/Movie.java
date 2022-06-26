@@ -56,6 +56,9 @@ public abstract class Movie extends ObjectPlus {
         }
     }
 
+    /***
+     * Delete movies with timed license, that has expired license
+     */
     public static void deleteMoviesWithExpiredLicense() {
         try {
             List<MovieTimedLicense> timedLicenseMovies = (List<MovieTimedLicense>) ObjectPlus.getExtent(MovieTimedLicense.class);
@@ -69,6 +72,21 @@ public abstract class Movie extends ObjectPlus {
             }
             timedLicenseMovies.removeAll(moviesToRemove); //remove movies with expired license from extension
         } catch (ClassNotFoundException ignore) {}
+    }
+
+    /***
+     * Generate list of all movies that cinema has
+     * @return List of all movies- timed license movies and no time license movies
+     */
+    public static List<Movie> getAllMovies() {
+        List<Movie> allMovies = new ArrayList<>();
+        try {
+            allMovies.addAll((List<MovieNoTimeLimitLicense>) ObjectPlus.getExtent(MovieNoTimeLimitLicense.class));
+        } catch (ClassNotFoundException ignore) {}
+        try {
+            allMovies.addAll((List<MovieTimedLicense>) ObjectPlus.getExtent(MovieTimedLicense.class));
+        } catch (ClassNotFoundException ignore) {}
+        return allMovies;
     }
 
     @Override
