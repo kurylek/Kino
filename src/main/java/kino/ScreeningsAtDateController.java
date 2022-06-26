@@ -1,5 +1,6 @@
 package kino;
 
+import enums.EnumPersonType;
 import enums.EnumScreeningStatus;
 import exceptions.WrongPersonTypeException;
 import javafx.event.ActionEvent;
@@ -122,16 +123,24 @@ public class ScreeningsAtDateController {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         for(int i=0; i<screeningsAtDate.size(); i++){
             Screening s = screeningsAtDate.get(i);
-            String employeeWarning = "";
-            try {
-                if(this.client.operateOn(s.getTakesPlace())) {
-                    employeeWarning = "\tObsługujesz tę salę, sprawdź czy masz wolne!";
-                }
-                if(this.client.canBeBusy(s)) {
-                    employeeWarning = "\tW sali, którą obsługujesz jest w tym czasie seans, sprawdź czy masz wolne!";
-                }
-            }catch (WrongPersonTypeException | ParseException ignore) {}
-            screeningsList.setText(screeningsList.getText() + "Seans numer " + (i+1) + ": " + timeFormat.format(s.getScreeningDateTime()) + " Film- " + s.getMovieOnScreening().getTitle() + " " + employeeWarning + "\n");
+            String warning = "\t";
+            if(s.getScreeningStatus() == EnumScreeningStatus.DURING) {
+                warning = "Seans w trakcie";
+            }else if(s.getScreeningStatus() == EnumScreeningStatus.COMPLETED) {
+                warning = "Seans zakończony";
+            }else if(s.getScreeningStatus() == EnumScreeningStatus.CANCELLED) {
+                warning = "Seans odwołany";
+            }else if(this.client.getPersonTypes().contains(EnumPersonType.EMPLOYEE)){
+                try {
+                    if(this.client.operateOn(s.getTakesPlace())) {
+                        warning = "Obsługujesz tę salę, sprawdź czy masz wolne!";
+                    }
+                    if(this.client.canBeBusy(s)) {
+                        warning = "W sali, którą obsługujesz jest w tym czasie seans, sprawdź czy masz wolne!";
+                    }
+                }catch (WrongPersonTypeException | ParseException ignore) {}
+            }
+            screeningsList.setText(screeningsList.getText() + "Seans numer " + (i+1) + ": " + timeFormat.format(s.getScreeningDateTime()) + " Film- " + s.getMovieOnScreening().getTitle() + " " + warning + "\n");
         }
     }
 }
