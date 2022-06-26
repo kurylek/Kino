@@ -226,7 +226,19 @@ public class Person extends ObjectPlus {
 
     @Override
     public String toString() {
-        return firstName + " " + lastName + ", email: " + email +  ", phone number:" + phoneNumber
-                + ", address: " + address ;
+        String result = firstName + " " + lastName;
+        String types = " (";
+        if(personTypes.contains(EnumPersonType.CLIENT)) {
+            types  += "I'm client!";
+            result += ", email: " + email;
+            if(phoneNumber != null)
+                result += ", phone number:" + phoneNumber;
+        }
+        if(personTypes.contains(EnumPersonType.EMPLOYEE)){
+            types += "I'm employee!";
+            result += ", address: " + address;
+        }
+
+        return result + types +")";
     }
 }

@@ -20,10 +20,10 @@ public class ReadAndListExtends {
 
         //ObjectPlus.showExtent(Screening.class);
         //ObjectPlus.showExtent(ScreeningRoom.class);
-        ObjectPlus.showExtent(MovieTimedLicense.class);
-        ObjectPlus.showExtent(MovieNoTimeLimitLicense.class);
-        //ObjectPlus.showExtent(Person.class);
+        //ObjectPlus.showExtent(MovieTimedLicense.class);
+        //ObjectPlus.showExtent(MovieNoTimeLimitLicense.class);
+        ObjectPlus.showExtent(Person.class);
 
-        System.out.println(Movie.getAllMovies());
+        //System.out.println(Movie.getAllMovies());
     }
 }
